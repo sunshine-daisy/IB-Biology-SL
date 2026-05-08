@@ -135,8 +135,9 @@ input { font-family: 'DM Sans', sans-serif; }
   cursor: pointer; position: relative; overflow: hidden;
   transition: border-color 0.15s, transform 0.1s;
 }
+.theme-card-wrap .theme-card { border-radius: 12px; }
 .theme-card:hover { border-color: #aacbaa; transform: translateY(-1px); }
-.theme-card-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.theme-card-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
 .bar-a { background: #3b8c3b; }
 .bar-b { background: #2e7fa8; }
 .bar-c { background: #1658EA; }
@@ -485,14 +486,14 @@ input { font-family: 'DM Sans', sans-serif; }
 
 /* ── Flashcard side tab on theme cards ───────────────────────────────────── */
 #theme-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-.theme-card-wrap { display: flex; border-radius: 8px; overflow: hidden; }
-.theme-card-wrap .theme-card { flex: 1; border-radius: 8px 0 0 8px; border-right: none; }
+.theme-card-wrap { display: flex; border-radius: 12px; overflow: visible; gap: 3px; }
+.theme-card-wrap .theme-card { flex: 1; border-radius: 12px 0 0 12px; border-right: none; }
 .fc-tab {
   display: flex; align-items: center; justify-content: center;
   writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
   background: #2d5a2d; color: #fff;
   font-size: 12px; font-weight: 500; letter-spacing: 0.05em;
-  padding: 14px 8px; border-radius: 0 10px 10px 0;
+  padding: 14px 8px; border-radius: 10px;
   cursor: pointer; min-width: 32px; white-space: nowrap;
   transition: background 0.15s, transform 0.15s;
   gap: 5px; user-select: none;
@@ -5033,7 +5034,576 @@ const BIO_QUESTIONS = [
   'Electrons flow directly from NADH to O\u2082 without passing through protein complexes; ATP is produced by substrate-level phosphorylation in the inner membrane'
  ],
  imgAnswer:1,
- imgExplanation:'The ETC works in sequence: (1) NADH donates electrons to Complex I; FADH\u2082 to Complex II. Both feed electrons into UQ (ubiquinone). (2) Electrons pass UQ \u2192 Complex III \u2192 cytochrome c \u2192 Complex IV. (3) At Complexes I, III, and IV, the energy from electron flow pumps H\u207a OUT of the matrix INTO the intermembrane space. (4) H\u207a accumulates in the IMS, creating the proton motive force (electrochemical gradient). (5) H\u207a flows BACK through ATP synthase (Complex V) down the gradient \u2014 this drives rotation of the synthase, phosphorylating ADP to ATP (chemiosmosis). (6) At Complex IV, electrons finally combine with O\u2082 and H\u207a to form H\u2082O \u2014 O\u2082 is the final electron acceptor. Without O\u2082, the chain backs up and stops entirely.'}
+ imgExplanation:'The ETC works in sequence: (1) NADH donates electrons to Complex I; FADH\u2082 to Complex II. Both feed electrons into UQ (ubiquinone). (2) Electrons pass UQ \u2192 Complex III \u2192 cytochrome c \u2192 Complex IV. (3) At Complexes I, III, and IV, the energy from electron flow pumps H\u207a OUT of the matrix INTO the intermembrane space. (4) H\u207a accumulates in the IMS, creating the proton motive force (electrochemical gradient). (5) H\u207a flows BACK through ATP synthase (Complex V) down the gradient \u2014 this drives rotation of the synthase, phosphorylating ADP to ATP (chemiosmosis). (6) At Complex IV, electrons finally combine with O\u2082 and H\u207a to form H\u2082O \u2014 O\u2082 is the final electron acceptor. Without O\u2082, the chain backs up and stops entirely.'},
+
+
+// ── NEW IMG QUESTIONS — Images 40–80 ────────────────────────────────────────
+
+// 40 - Action Spectrum Graph (C1.3)
+{id:'C142',type:'img',theme:'C',subtopic:'C1.3',
+ diagram:'The graph shows the action spectrum of photosynthesis. Which wavelengths of light are MOST effective at driving photosynthesis, as shown by the highest peaks?',
+ imgSrc:'images/40-C1.3-Action-Spectrum-Graph.jpg',
+ imgOptions:['Green and yellow wavelengths (500–580 nm)','Red (~680 nm) and blue-violet (~430 nm) wavelengths','Only red wavelengths above 700 nm','Infrared wavelengths beyond 750 nm'],
+ imgAnswer:1,
+ imgExplanation:'The action spectrum shows the rate of photosynthesis at each wavelength. The two peaks — blue-violet (~430 nm) and red (~680 nm) — correspond to the absorption peaks of chlorophyll a. Green light (500–580 nm) is mostly reflected, which is why plants appear green and why it is the least effective wavelength for photosynthesis.'},
+
+{id:'C143',type:'img',theme:'C',subtopic:'C1.3',
+ diagram:'The action spectrum graph shows a dip in photosynthesis rate in the green region (500–580 nm). What does this tell us about how plants interact with green light?',
+ imgSrc:'images/40-C1.3-Action-Spectrum-Graph.jpg',
+ imgOptions:['Plants absorb green light most efficiently for photosynthesis','Plants reflect most green light rather than absorbing it, so it drives little photosynthesis','Green light is toxic to chlorophyll molecules','Plants use green light only during low-light conditions'],
+ imgAnswer:1,
+ imgExplanation:'The dip in the action spectrum at green wavelengths shows that green light drives very little photosynthesis. This is because chlorophyll a and b reflect rather than absorb green light — which is exactly why plants appear green to our eyes. The reflected green light does not power photosynthesis.'},
+
+{id:'C144',type:'img',theme:'C',subtopic:'C1.3',
+ diagram:'Using the action spectrum graph, predict what would happen to the rate of photosynthesis if a plant were illuminated only with green light (520 nm).',
+ imgSrc:'images/40-C1.3-Action-Spectrum-Graph.jpg',
+ imgOptions:['The rate would be at its maximum because green is the brightest visible light','The rate would be very low because chlorophyll reflects rather than absorbs green light','The rate would be identical to red light illumination','The rate would be zero because plants cannot detect green wavelengths at all'],
+ imgAnswer:1,
+ imgExplanation:'At 520 nm (green), the action spectrum shows a pronounced dip — meaning very little photosynthesis occurs. Chlorophyll molecules reflect green light, so very little is absorbed to drive the light-dependent reactions. This is a classic IB application question: action spectrum dip at green = low absorption = low photosynthetic rate.'},
+
+// 41 - Chromatography Pigments (C1.3)
+{id:'C145',type:'img',theme:'C',subtopic:'C1.3',
+ diagram:'The diagram shows paper chromatography of leaf pigments. Which pigment travels furthest up the chromatography paper and why?',
+ imgSrc:'images/41-C1.3-Chromatography-Pigments.jpg',
+ imgOptions:['Chlorophyll b — because it is the most abundant pigment in leaves','Carotene — because it is the least polar and most soluble in the non-polar solvent','Xanthophyll — because it has the highest molecular weight','Chlorophyll a — because it absorbs the most light'],
+ imgAnswer:1,
+ imgExplanation:'In chromatography, pigments separate based on their solubility in the solvent and their affinity for the paper. Carotene is the least polar pigment, making it most soluble in the non-polar solvent used. It therefore travels furthest (highest Rf value). Chlorophyll b, being more polar, travels least far. The order from top to bottom is typically: carotene > xanthophyll > chlorophyll a > chlorophyll b.'},
+
+{id:'C146',type:'img',theme:'C',subtopic:'C1.3',
+ diagram:'In the chromatography diagram, what does the presence of multiple separate bands reveal about the pigments in a leaf?',
+ imgSrc:'images/41-C1.3-Chromatography-Pigments.jpg',
+ imgOptions:['Leaves contain a single pigment that separates into bands due to temperature changes','Leaves contain several different photosynthetic pigments with different polarities and solubilities','All bands are forms of chlorophyll a at different concentrations','The number of bands indicates the age of the leaf'],
+ imgAnswer:1,
+ imgExplanation:'Each distinct band on the chromatogram represents a different pigment with a unique Rf value. The presence of multiple bands (typically carotene, xanthophyll, chlorophyll a, chlorophyll b) demonstrates that leaves contain a mixture of photosynthetic pigments. Having multiple pigments allows the leaf to absorb a broader range of wavelengths, maximising light capture for photosynthesis.'},
+
+{id:'C147',type:'img',theme:'C',subtopic:'C1.3',
+ diagram:'How is the Rf value calculated using the chromatography diagram, and what does a higher Rf value indicate about a pigment?',
+ imgSrc:'images/41-C1.3-Chromatography-Pigments.jpg',
+ imgOptions:['Rf = distance moved by solvent ÷ distance moved by pigment; higher Rf = more polar pigment','Rf = distance moved by pigment ÷ distance moved by solvent front; higher Rf = less polar, more soluble pigment','Rf = mass of pigment ÷ volume of solvent; higher Rf = heavier pigment','Rf = concentration of pigment × distance moved; higher Rf = more abundant pigment'],
+ imgAnswer:1,
+ imgExplanation:'Rf (retardation factor) = distance travelled by pigment ÷ distance travelled by solvent front. Values range from 0 to 1. A higher Rf indicates the pigment is less polar (more soluble in the non-polar solvent) and therefore moves further with the solvent. Carotene has the highest Rf (~0.95); chlorophyll b has the lowest (~0.45). Rf values are characteristic for each pigment under specific conditions.'},
+
+// 42 - Neuron Structure (C2.2)
+{id:'C148',type:'img',theme:'C',subtopic:'C2.2',
+ diagram:'The diagram shows a myelinated motor neuron. Which structure collects incoming signals from other neurons and passes them toward the cell body?',
+ imgSrc:'images/42-C2.2-Neuron-Structure.jpg',
+ imgOptions:['The axon — it carries signals away from the cell body to effectors','The myelin sheath — it insulates the neuron and speeds up transmission','The dendrites — they receive signals from other neurons and conduct them toward the cell body','The axon terminals — they release neurotransmitters into the synapse'],
+ imgAnswer:2,
+ imgExplanation:'Dendrites are short, branched extensions of the neuron that receive electrochemical signals from other neurons (via synapses) and conduct them toward the cell body (soma). The more dendrites a neuron has, the more inputs it can receive. In contrast, the axon carries signals AWAY from the cell body toward the next neuron or effector. The axon terminals release neurotransmitters.'},
+
+{id:'C149',type:'img',theme:'C',subtopic:'C2.2',
+ diagram:'In the neuron diagram, what is the function of the myelin sheath, and which cells produce it in the peripheral nervous system?',
+ imgSrc:'images/42-C2.2-Neuron-Structure.jpg',
+ imgOptions:['The myelin sheath produces ATP for the neuron; produced by astrocytes','The myelin sheath insulates the axon and speeds up signal transmission by saltatory conduction; produced by Schwann cells','The myelin sheath stores neurotransmitters; produced by oligodendrocytes','The myelin sheath anchors the neuron to surrounding tissue; produced by microglia'],
+ imgAnswer:1,
+ imgExplanation:'The myelin sheath is a fatty (lipid-rich) insulating layer around the axon, produced by Schwann cells in the PNS and oligodendrocytes in the CNS. It prevents ion leakage and forces the action potential to jump between gaps called Nodes of Ranvier — a process called saltatory conduction. This dramatically increases the speed of nerve impulse transmission (up to 120 m/s in myelinated fibres vs ~1 m/s unmyelinated).'},
+
+{id:'C150',type:'img',theme:'C',subtopic:'C2.2',
+ diagram:'The diagram labels the Nodes of Ranvier along the myelinated axon. What happens at these gaps in the myelin sheath during nerve impulse transmission?',
+ imgSrc:'images/42-C2.2-Neuron-Structure.jpg',
+ imgOptions:['Neurotransmitters are released at Nodes of Ranvier to stimulate adjacent neurons','The action potential is regenerated at each Node of Ranvier as ions flow across the membrane — saltatory conduction','Myelin is synthesised at Nodes of Ranvier to repair damage to the sheath','ATP is produced at Nodes of Ranvier to power the sodium-potassium pump'],
+ imgAnswer:1,
+ imgExplanation:'Nodes of Ranvier are unmyelinated gaps along the axon where voltage-gated Na⁺ and K⁺ channels are concentrated. During saltatory conduction, the action potential effectively "jumps" from node to node — depolarisation occurs only at these exposed regions rather than along the entire axon. This makes transmission faster and more energy-efficient (fewer ions need to be pumped back).'},
+
+// 43 - Action Potential Graph (C2.2)
+{id:'C151',type:'img',theme:'C',subtopic:'C2.2',
+ diagram:'The graph shows a single action potential. During which phase do voltage-gated Na⁺ channels open, causing rapid depolarisation of the membrane?',
+ imgSrc:'images/43-C2.2-Action-Potential-Graph.jpg',
+ imgOptions:['During the hyperpolarisation phase, when membrane potential drops below –70 mV','During the rising phase, when membrane potential rapidly increases from –70 mV toward +40 mV','During the falling phase, when K⁺ channels open and Na⁺ channels close','During the refractory period, when the neuron cannot fire again'],
+ imgAnswer:1,
+ imgExplanation:'When a stimulus reaches threshold (~–55 mV), voltage-gated Na⁺ channels open rapidly, allowing Na⁺ to rush INTO the cell down its electrochemical gradient. This causes the rapid upswing (depolarisation) of the action potential from –70 mV to approximately +40 mV. This is the rising phase of the action potential graph. Na⁺ channels then inactivate and K⁺ channels open, causing repolarisation.'},
+
+{id:'C152',type:'img',theme:'C',subtopic:'C2.2',
+ diagram:'The action potential graph shows a period of hyperpolarisation (undershoot) below –70 mV after the falling phase. What causes this, and what is its significance?',
+ imgSrc:'images/43-C2.2-Action-Potential-Graph.jpg',
+ imgOptions:['Hyperpolarisation is caused by excess Na⁺ influx; it has no functional significance','Hyperpolarisation occurs because K⁺ channels remain open slightly too long, allowing excess K⁺ to leave; it contributes to the refractory period preventing backward propagation','Hyperpolarisation is caused by Cl⁻ influx and allows the neuron to fire more rapidly','Hyperpolarisation occurs when the Na⁺/K⁺ pump overworks, and it resets the neuron instantly'],
+ imgAnswer:1,
+ imgExplanation:'After the peak of the action potential, K⁺ channels open and remain open slightly longer than needed for repolarisation. This allows excess K⁺ to leave the cell, pushing the membrane potential briefly below resting potential (–70 mV) — the undershoot/hyperpolarisation. During this period, the neuron is in its relative refractory period and is harder to stimulate. This prevents the action potential from travelling backwards.'},
+
+{id:'C153',type:'img',theme:'C',subtopic:'C2.2',
+ diagram:'The graph shows the threshold potential at approximately –55 mV. What happens if a stimulus depolarises the membrane to –60 mV (below threshold)?',
+ imgSrc:'images/43-C2.2-Action-Potential-Graph.jpg',
+ imgOptions:['A smaller, weaker action potential is generated proportional to the stimulus size','No action potential is generated — the membrane returns to resting potential without firing','A full action potential fires but with a longer delay','Multiple action potentials fire rapidly in succession'],
+ imgAnswer:1,
+ imgExplanation:'Action potentials follow the all-or-nothing principle. If a stimulus is subthreshold (does not reach ~–55 mV), voltage-gated Na⁺ channels do not open sufficiently and no action potential is generated — the membrane simply returns to resting potential. Once threshold IS reached, a full-sized action potential always fires regardless of how much above threshold the stimulus was. Intensity is coded by frequency of action potentials, not their size.'},
+
+// 44 - Synapse Diagram (C2.2)
+{id:'C154',type:'img',theme:'C',subtopic:'C2.2',
+ diagram:'The synapse diagram shows synaptic vesicles in the presynaptic terminal. What triggers these vesicles to fuse with the presynaptic membrane and release neurotransmitters?',
+ imgSrc:'images/44-C2.2-Synapse-Diagram.jpg',
+ imgOptions:['The arrival of neurotransmitters from the postsynaptic neuron triggers vesicle release','The arrival of an action potential causes voltage-gated Ca²⁺ channels to open, Ca²⁺ influx triggers vesicle fusion and neurotransmitter release','Neurotransmitters are released continuously regardless of action potentials','ATP from mitochondria directly pushes vesicles to fuse with the membrane'],
+ imgAnswer:1,
+ imgExplanation:'When an action potential reaches the axon terminal, it opens voltage-gated Ca²⁺ channels. Ca²⁺ floods into the presynaptic terminal, triggering synaptic vesicles to fuse with the presynaptic membrane via exocytosis, releasing neurotransmitters (e.g. acetylcholine) into the synaptic cleft. This is why mitochondria are abundant in axon terminals — they supply the ATP needed for repackaging neurotransmitters into vesicles.'},
+
+{id:'C155',type:'img',theme:'C',subtopic:'C2.2',
+ diagram:'In the synapse diagram, what happens to neurotransmitters after they bind to receptors on the postsynaptic membrane?',
+ imgSrc:'images/44-C2.2-Synapse-Diagram.jpg',
+ imgOptions:['They remain permanently bound to receptors, maintaining continuous stimulation','They are broken down by enzymes in the synaptic cleft (e.g. acetylcholinesterase) or reabsorbed by the presynaptic neuron','They diffuse back through the presynaptic membrane intact for reuse','They are destroyed by the immune system to prevent overstimulation'],
+ imgAnswer:1,
+ imgExplanation:'After binding to postsynaptic receptors and generating a response, neurotransmitters must be removed to prevent continuous stimulation. They are either: (1) broken down by enzymes in the synaptic cleft (e.g. acetylcholinesterase breaks down acetylcholine into choline + acetate), or (2) reabsorbed by the presynaptic neuron via reuptake transporters for recycling. This termination of signal is essential for discrete, controlled signalling.'},
+
+// 45 - Reflex Arc (C3.1)
+{id:'C156',type:'img',theme:'C',subtopic:'C3.1',
+ diagram:'The reflex arc diagram shows the pathway of a withdrawal reflex. What is the correct sequence of structures involved?',
+ imgSrc:'images/45-C3.1-Reflex-Arc.jpg',
+ imgOptions:['Effector → motor neuron → relay neuron → sensory neuron → receptor','Receptor → sensory neuron → relay neuron (in spinal cord) → motor neuron → effector','Brain → motor neuron → relay neuron → sensory neuron → receptor','Receptor → motor neuron → brain → sensory neuron → effector'],
+ imgAnswer:1,
+ imgExplanation:'A reflex arc follows this sequence: (1) Receptor detects stimulus, (2) Sensory (afferent) neuron carries impulse to spinal cord, (3) Relay (interneuron) in the spinal cord grey matter connects the pathways, (4) Motor (efferent) neuron carries impulse to the effector, (5) Effector (muscle or gland) produces response. Crucially, the reflex bypasses the brain — the relay neuron is in the spinal cord, making the response faster than a conscious response.'},
+
+{id:'C157',type:'img',theme:'C',subtopic:'C3.1',
+ diagram:'Why is a reflex arc faster than a voluntary response, as illustrated in the diagram?',
+ imgSrc:'images/45-C3.1-Reflex-Arc.jpg',
+ imgOptions:['Reflex arcs use faster-conducting unmyelinated neurons exclusively','Reflex arcs bypass the brain — the relay neuron connects sensory and motor pathways directly in the spinal cord, reducing the distance the impulse travels','Reflex arcs release more neurotransmitter than voluntary pathways','Reflex arcs only involve one neuron instead of three'],
+ imgAnswer:1,
+ imgExplanation:'Reflex arcs are faster because they are processed in the spinal cord, not the brain. The signal does not need to travel all the way up to the cerebral cortex for processing and back down — it is rerouted at the spinal cord level via the relay neuron. This dramatically shortens the pathway and therefore the time to response. The brain receives information about the reflex AFTER it has occurred — which is why you pull your hand away from something hot before you consciously feel pain.'},
+
+// 46 - Brain Regions (C3.1)
+{id:'C158',type:'img',theme:'C',subtopic:'C3.1',
+ diagram:'The diagram labels the cerebral cortex, cerebellum, medulla oblongata, and hypothalamus. Which region controls unconscious vital functions such as heart rate, breathing rate, and blood pressure?',
+ imgSrc:'images/46-C3.1-Brain-Regions.jpg',
+ imgOptions:['Cerebral cortex — the outermost layer responsible for all conscious and unconscious functions','Cerebellum — the region at the back of the brain that controls balance and coordination','Medulla oblongata — the brainstem region that controls autonomic vital functions','Hypothalamus — the region that only controls body temperature'],
+ imgAnswer:2,
+ imgExplanation:'The medulla oblongata (brainstem) contains the vital centres that control autonomic (involuntary) functions: the cardiovascular centre (regulates heart rate and blood pressure) and the respiratory centre (controls breathing rhythm). These functions continue during sleep and unconsciousness. Damage to the medulla is life-threatening. The cerebellum coordinates movement and balance; the hypothalamus regulates homeostasis (temperature, water balance, hunger); the cerebral cortex handles conscious thought.'},
+
+{id:'C159',type:'img',theme:'C',subtopic:'C3.1',
+ diagram:'According to the brain diagram, which region coordinates smooth, precise voluntary movements and maintains balance and posture?',
+ imgSrc:'images/46-C3.1-Brain-Regions.jpg',
+ imgOptions:['Medulla oblongata — it sends motor signals directly to muscles for all movement','Cerebral cortex — it initiates all movements including balance','Cerebellum — it coordinates and fine-tunes voluntary movements and maintains posture','Hypothalamus — it controls the timing of all motor activity'],
+ imgAnswer:2,
+ imgExplanation:'The cerebellum ("little brain") receives input from the cerebral cortex (intended movement), proprioceptors (actual body position), and the vestibular system (balance). It compares intended vs actual movement and sends corrective signals, making movements smooth and coordinated. Cerebellar damage causes ataxia — uncoordinated, jerky movements and poor balance. Athletes with highly developed cerebellar pathways show exceptional motor control.'},
+
+// 47 - Antibody Structure (C3.2)
+{id:'C160',type:'img',theme:'C',subtopic:'C3.2',
+ diagram:'The antibody structure diagram shows a Y-shaped molecule with variable and constant regions. Where does antigen binding occur, and what makes this region specific to one antigen?',
+ imgSrc:'images/47-C3.2-Antibody-Structure.jpg',
+ imgOptions:['Antigen binding occurs at the constant region (Fc); specificity is determined by the length of the heavy chains','Antigen binding occurs at the variable regions at the tips of the Y (Fab region); the unique amino acid sequence of each variable region creates a specific 3D binding site complementary to one antigen','Antigen binding occurs along the entire length of both heavy chains simultaneously','Antigen binding occurs at the hinge region, which flexes to capture any antigen'],
+ imgAnswer:1,
+ imgExplanation:'Each antibody has two antigen-binding sites located at the tips of the Y shape — in the variable (V) regions of both the heavy and light chains. The variable region has a unique amino acid sequence that folds into a specific 3D shape complementary to one particular antigen (like a lock and key). This is what gives antibodies their exquisite specificity. The constant (Fc) region is the same in all antibodies of the same class and determines the antibody\'s effector function.'},
+
+{id:'C161',type:'img',theme:'C',subtopic:'C3.2',
+ diagram:'The diagram shows an antibody with two heavy chains and two light chains linked by disulfide bonds. How many antigen-binding sites does this antibody have, and what is its advantage?',
+ imgSrc:'images/47-C3.2-Antibody-Structure.jpg',
+ imgOptions:['One antigen-binding site — allowing highly precise one-to-one binding','Two antigen-binding sites — allowing the antibody to cross-link antigens, forming aggregates that are more easily phagocytosed','Four antigen-binding sites — one at each end of both heavy and light chains','Three antigen-binding sites — one at the tip and one on each arm of the Y'],
+ imgAnswer:1,
+ imgExplanation:'A standard IgG antibody (the Y-shaped monomer) has TWO identical antigen-binding sites — one at the tip of each arm of the Y. This bivalency allows antibodies to cross-link multiple antigens simultaneously, forming large immune complexes (lattices) that are much more efficiently recognised and engulfed by phagocytes. Some antibody classes (e.g. IgM) are pentamers with 10 binding sites, providing even greater avidity.'},
+
+// 48 - Immune Response Graph (C3.2)
+{id:'C162',type:'img',theme:'C',subtopic:'C3.2',
+ diagram:'The immune response graph shows antibody levels after a first and second exposure to the same antigen. What explains the faster and larger antibody response on second exposure?',
+ imgSrc:'images/48-C3.2-Immune-Response-Graph.jpg',
+ imgOptions:['The second response is larger because more antigen enters the body on second exposure','The second response is faster and larger because memory B cells formed during the primary response rapidly differentiate into plasma cells upon re-exposure','The second response involves a different type of antibody produced by a different immune cell','The second response is larger because the innate immune system is activated instead of the adaptive system'],
+ imgAnswer:1,
+ imgExplanation:'The secondary (anamnestic) response is faster and produces far more antibodies because of immunological memory. During the primary response, some B cells differentiate into long-lived memory B cells rather than plasma cells. Upon re-exposure to the same antigen, these memory B cells rapidly proliferate and differentiate into plasma cells, producing large amounts of high-affinity antibodies within days rather than weeks. This is the principle behind vaccination.'},
+
+{id:'C163',type:'img',theme:'C',subtopic:'C3.2',
+ diagram:'The graph shows that the primary response produces mainly IgM antibodies, while the secondary response produces mainly IgG. What does this class switching indicate about the adaptive immune response?',
+ imgSrc:'images/48-C3.2-Immune-Response-Graph.jpg',
+ imgOptions:['Class switching shows that the immune system weakens over time, producing simpler antibodies','Class switching from IgM to IgG during the secondary response indicates maturation of the immune response — IgG has higher affinity and longer half-life than IgM','Class switching occurs because IgM runs out and IgG is produced as a backup','Class switching is only seen in autoimmune conditions and is abnormal'],
+ imgAnswer:1,
+ imgExplanation:'During the primary response, B cells first produce IgM (large pentamers, good at activating complement). During affinity maturation and class switching, B cells switch to producing IgG — which has higher antigen affinity, longer half-life, can cross the placenta, and is better at opsonisation (marking pathogens for phagocytosis). The secondary response is dominated by high-affinity IgG, reflecting a more mature, targeted immune response. This is why secondary responses are more effective at clearing pathogens.'},
+
+// 49 - Adaptive Immunity (C3.2)
+{id:'C164',type:'img',theme:'C',subtopic:'C3.2',
+ diagram:'The adaptive immunity diagram shows clonal selection of B cells. Which cell presents the antigen to initiate this process, and what molecule is used for antigen presentation?',
+ imgSrc:'images/49-C3.2-Adaptive-Immune-Response.jpg',
+ imgOptions:['Natural killer cells present antigens using MHC class III molecules','Antigen-presenting cells (e.g. dendritic cells, macrophages) present processed antigens on MHC class II molecules to helper T cells, which then activate B cells','B cells present antigens directly to cytotoxic T cells without any intermediary','Plasma cells present antigens on their surface to trigger clonal expansion'],
+ imgAnswer:1,
+ imgExplanation:'Antigen-presenting cells (APCs) — particularly dendritic cells and macrophages — engulf pathogens, digest them, and display antigen fragments on MHC class II molecules on their surface. Helper T cells (CD4+) with complementary T cell receptors recognise this MHC II-antigen complex and become activated. Activated helper T cells then release cytokines that stimulate B cells with matching antigen receptors to proliferate (clonal expansion) and differentiate into plasma cells and memory B cells.'},
+
+// 50 - Population Growth Curves (C4.1)
+{id:'C165',type:'img',theme:'C',subtopic:'C4.1',
+ diagram:'The graph shows J-shaped (exponential) and S-shaped (logistic) population growth curves. What factor causes the S-shaped curve to level off at the carrying capacity (K)?',
+ imgSrc:'images/50-C4.1-Population-Growth-Curves.jpg',
+ imgOptions:['The population runs out of space to reproduce physically within the graph boundaries','Limiting factors such as food, water, space, predation, and disease increase as population grows, reducing birth rate and increasing death rate until the population stabilises at K','The population genetically programs itself to stop growing at a fixed number','Carrying capacity is reached only in laboratory conditions, not in nature'],
+ imgAnswer:1,
+ imgExplanation:'As a population grows and approaches carrying capacity (K), density-dependent limiting factors become increasingly effective: food and space become scarce (reducing birth rate), waste accumulates, disease spreads more easily, and predation increases. These factors collectively reduce the growth rate until births equal deaths and the population stabilises at K. This produces the characteristic S-shaped (sigmoid/logistic) growth curve. J-shaped growth occurs when resources are unlimited — rare in nature.'},
+
+{id:'C166',type:'img',theme:'C',subtopic:'C4.1',
+ diagram:'In the population growth graph, during which phase of the S-shaped curve is population growth rate at its maximum?',
+ imgSrc:'images/50-C4.1-Population-Growth-Curves.jpg',
+ imgOptions:['At the very beginning, when population numbers are smallest','At the inflection point (middle of the S-curve) where the population is at approximately K/2','At the plateau, when population has reached carrying capacity','At the end, just before the population crashes'],
+ imgAnswer:1,
+ imgExplanation:'Population growth rate (individuals added per unit time) is maximum at the inflection point of the S-curve — approximately at K/2 (half the carrying capacity). At this point, the population is large enough to reproduce rapidly but resources are still sufficient to support fast growth. This is important in fisheries management — harvesting at K/2 allows the maximum sustainable yield because the population rebounds fastest from this size.'},
+
+// 51 - Interspecific Relationships (C4.1)
+{id:'C167',type:'img',theme:'C',subtopic:'C4.1',
+ diagram:'The diagram shows four types of interspecific relationships. In a parasitic relationship, how do the two species differ in their outcomes?',
+ imgSrc:'images/51-C4.1-Interspecific-Relationships.jpg',
+ imgOptions:['Both species benefit equally from the relationship','The parasite benefits (+) while the host is harmed (–); unlike predation, parasites rarely kill their host immediately','Both species are harmed by the interaction','One species is unaffected while the other benefits'],
+ imgAnswer:1,
+ imgExplanation:'Parasitism is a + / – relationship: the parasite benefits (gains nutrition, shelter, or reproductive advantage) while the host is harmed. Unlike predators, parasites typically do not kill their host immediately — a dead host provides no ongoing benefit. Examples include tapeworms in intestines, Plasmodium (malaria) in blood cells, and mistletoe on trees. This is distinct from mutualism (+ / +), commensalism (+ / 0), and competition (– / –).'},
+
+{id:'C168',type:'img',theme:'C',subtopic:'C4.1',
+ diagram:'The interspecific relationships diagram includes mutualism. Which of the following is an example of mutualism, and what makes it different from commensalism?',
+ imgSrc:'images/51-C4.1-Interspecific-Relationships.jpg',
+ imgOptions:['A shark and remora fish — the remora benefits while the shark is unaffected (commensalism, not mutualism)','Nitrogen-fixing Rhizobium bacteria in legume root nodules — bacteria receive carbohydrates from the plant while fixing N₂ for the plant (both benefit = mutualism)','A tapeworm in a human intestine — both organisms share the same food source','Competitive exclusion of two bird species sharing the same food niche'],
+ imgAnswer:1,
+ imgExplanation:'Mutualism (+ / +) benefits both species. Rhizobium bacteria live in root nodules of legumes: the bacteria fix atmospheric N₂ into ammonia (usable by the plant) while the plant supplies carbohydrates to the bacteria. Commensalism (+ / 0) benefits one species while the other is unaffected — e.g. remora fish attaching to sharks eat scraps without affecting the shark. The key difference: in mutualism BOTH species benefit; in commensalism only ONE does.'},
+
+// 52 - Carbon Cycle (C4.2)
+{id:'C169',type:'img',theme:'C',subtopic:'C4.2',
+ diagram:'The carbon cycle diagram shows multiple pathways of carbon movement. Which process removes CO₂ from the atmosphere and incorporates it into organic molecules in producers?',
+ imgSrc:'images/52-C4.2-Carbon-Cycle.jpg',
+ imgOptions:['Respiration — all living organisms release CO₂ back into the atmosphere','Photosynthesis — producers use light energy to fix atmospheric CO₂ into glucose and other organic compounds','Decomposition — bacteria and fungi break down organic matter releasing CO₂','Combustion — burning fossil fuels releases stored carbon as CO₂'],
+ imgAnswer:1,
+ imgExplanation:'Photosynthesis (carbon fixation) removes CO₂ from the atmosphere and incorporates it into organic molecules (glucose → starch, cellulose, proteins, lipids) using light energy. This is the primary pathway by which inorganic carbon re-enters the biotic component of the carbon cycle. All other processes shown (respiration, decomposition, combustion) release CO₂ back to the atmosphere. Without photosynthesis, atmospheric CO₂ would rise continuously.'},
+
+{id:'C170',type:'img',theme:'C',subtopic:'C4.2',
+ diagram:'The carbon cycle shows fossilisation as a pathway. How does the burning of fossil fuels disrupt the natural carbon cycle equilibrium shown in the diagram?',
+ imgSrc:'images/52-C4.2-Carbon-Cycle.jpg',
+ imgOptions:['Burning fossil fuels removes carbon from the atmosphere, reducing greenhouse gas levels','Burning fossil fuels releases carbon that was locked away for millions of years, adding CO₂ to the atmosphere faster than natural processes can remove it, disrupting equilibrium','Burning fossil fuels only affects the water cycle, not the carbon cycle','Fossil fuel combustion produces oxygen rather than CO₂, enriching the atmosphere'],
+ imgAnswer:1,
+ imgExplanation:'Fossil fuels (coal, oil, gas) represent carbon stored over millions of years of fossilisation — effectively removing it from the active carbon cycle. Combustion releases this stored carbon as CO₂ in decades rather than geological timescales. This adds carbon to the active cycle far faster than natural carbon sinks (photosynthesis, ocean absorption) can remove it, causing net CO₂ accumulation in the atmosphere — the primary driver of anthropogenic climate change.'},
+
+// 53 - Energy Pyramid (C4.2)
+{id:'C171',type:'img',theme:'C',subtopic:'C4.2',
+ diagram:'The energy pyramid shows decreasing energy at each trophic level. Approximately what percentage of energy is transferred from one trophic level to the next, and where does the rest go?',
+ imgSrc:'images/53-C4.2-Energy-Pyramid.jpg',
+ imgOptions:['90% is transferred; 10% is lost to heat through respiration','Only about 10% of energy is transferred to the next trophic level; approximately 90% is lost as heat through cellular respiration, movement, and as undigested material','50% is transferred and 50% is lost, depending on the ecosystem','100% is transferred but some is stored in body tissue at each level'],
+ imgAnswer:1,
+ imgExplanation:'The 10% rule (ecological efficiency): on average only about 10% of the energy at one trophic level is incorporated into biomass at the next level. The remaining ~90% is lost as: heat from cellular respiration (largest fraction), energy used for movement and metabolic processes, undigested material in faeces, and material in non-consumed body parts. This is why food chains are rarely longer than 4–5 levels — too little energy remains to support another trophic level.'},
+
+{id:'C172',type:'img',theme:'C',subtopic:'C4.2',
+ diagram:'Using the energy pyramid, explain why it is more energy-efficient for humans to eat plant crops directly rather than eating animals that were fed on those crops.',
+ imgSrc:'images/53-C4.2-Energy-Pyramid.jpg',
+ imgOptions:['It is not more efficient — meat contains more energy per gram than plant material','Eating plants directly accesses the first trophic level; adding an animal trophic level loses ~90% of energy, so more people can be fed from the same area of crops if they eat plants directly','Plants provide less nutrition than animals so more land is needed, making it less efficient','Efficiency is the same regardless of trophic level because energy is conserved'],
+ imgAnswer:1,
+ imgExplanation:'If humans eat plants directly (primary consumers), they access energy at the second trophic level. If they eat animals that ate plants, they access energy at the third trophic level — with ~90% lost at the plant→animal step. This means roughly 10x more people could be fed from the same crop if they ate the plant directly rather than feeding it to livestock. This has major implications for sustainable food systems and global food security — a key IB application.'},
+
+// 54 - DNA Replication Fork (D1.1)
+{id:'D163',type:'img',theme:'D',subtopic:'D1.1',
+ diagram:'The replication fork diagram shows leading and lagging strand synthesis. Why is the lagging strand synthesised in short fragments (Okazaki fragments) rather than continuously?',
+ imgSrc:'images/54-D1.1-DNA-Replication-Fork.jpg',
+ imgOptions:['The lagging strand is synthesised in fragments because DNA polymerase is less efficient on that strand','DNA polymerase can only synthesise DNA in the 5\'→3\' direction; since the lagging strand template runs 3\'→5\' away from the fork, synthesis must occur in short fragments in the direction away from the fork, then joined by ligase','The lagging strand is fragmented because it contains more guanine bases that slow polymerase','Okazaki fragments form because helicase unwinds the lagging strand more slowly'],
+ imgAnswer:1,
+ imgExplanation:'DNA polymerase III can only add nucleotides in the 5\'→3\' direction. At the replication fork, one template strand (3\'→5\') allows continuous synthesis toward the fork (leading strand). The other template (5\'→3\') runs away from the fork, so synthesis must occur in short 5\'→3\' segments (Okazaki fragments, ~100–200 nucleotides in eukaryotes) using multiple RNA primers. DNA polymerase I removes the RNA primers, fills the gaps, and DNA ligase joins the fragments.'},
+
+{id:'D164',type:'img',theme:'D',subtopic:'D1.1',
+ diagram:'In the replication fork diagram, what is the role of helicase and what problem does it create that topoisomerase must solve?',
+ imgSrc:'images/54-D1.1-DNA-Replication-Fork.jpg',
+ imgOptions:['Helicase synthesises new DNA strands; topoisomerase checks for errors','Helicase unwinds and separates the double helix by breaking hydrogen bonds between base pairs; this creates positive supercoiling ahead of the fork, which topoisomerase relieves by cutting and rejoining the DNA','Helicase adds RNA primers to template strands; topoisomerase removes them after synthesis','Helicase joins Okazaki fragments; topoisomerase seals the remaining nicks'],
+ imgAnswer:1,
+ imgExplanation:'Helicase moves along the DNA, breaking hydrogen bonds between complementary base pairs to unwind the double helix and create the replication fork. As helicase unwinds DNA, the double helix ahead becomes overwound (positive supercoiling), which would prevent further unwinding. Topoisomerase (gyrase in bacteria) relieves this tension by transiently cutting one or both DNA strands, allowing rotation, and resealing — enabling continuous replication fork progression.'},
+
+{id:'D165',type:'img',theme:'D',subtopic:'D1.1',
+ diagram:'The replication fork shows RNA primers at the start of each new DNA segment. What enzyme adds these primers, and why are they necessary?',
+ imgSrc:'images/54-D1.1-DNA-Replication-Fork.jpg',
+ imgOptions:['DNA polymerase III adds RNA primers because it requires a free 3\'–OH group to begin synthesis','Primase (RNA polymerase) synthesises short RNA primers because DNA polymerase III cannot initiate a new chain — it can only extend an existing strand from a free 3\'–OH group','Ligase adds RNA primers to seal gaps between Okazaki fragments','Helicase deposits RNA primers to mark where replication should begin'],
+ imgAnswer:1,
+ imgExplanation:'Primase is a specialised RNA polymerase that synthesises short RNA primers (8–12 nucleotides) complementary to the template strand. Primers are needed because DNA polymerase III cannot start synthesis on a bare template — it can only ADD nucleotides to an existing 3\'–OH group. The primer provides this starting point. After synthesis, RNA primers are removed by DNA polymerase I (which has 5\'→3\' exonuclease activity), the gaps are filled with DNA, and ligase seals the nicks.'},
+
+// 55 - Meselson-Stahl Experiment (D1.1)
+{id:'D166',type:'img',theme:'D',subtopic:'D1.1',
+ diagram:'The Meselson-Stahl experiment diagram shows bacteria grown in ¹⁵N then transferred to ¹⁴N medium. What result after ONE generation supported semi-conservative replication?',
+ imgSrc:'images/55-D1.1-Meselson-Stahl-Experiment.jpg',
+ imgOptions:['All DNA was heavy (¹⁵N/¹⁵N) — supporting conservative replication','All DNA was intermediate density (¹⁵N/¹⁴N hybrid) — supporting semi-conservative replication where each new molecule has one old and one new strand','Half the DNA was heavy and half was light — supporting dispersive replication','Two bands appeared: one heavy and one light — supporting conservative replication'],
+ imgAnswer:1,
+ imgExplanation:'After one generation in ¹⁴N medium, ALL DNA had intermediate density (appeared as a single band between heavy and light on the CsCl density gradient). This is exactly what semi-conservative replication predicts: each original ¹⁵N strand serves as template for a new ¹⁴N strand, producing hybrid ¹⁵N/¹⁴N molecules. Conservative replication would have produced one heavy band + one light band. Dispersive would also produce intermediate, but the second generation result distinguished between these models.'},
+
+{id:'D167',type:'img',theme:'D',subtopic:'D1.1',
+ diagram:'In the Meselson-Stahl diagram, what result after TWO generations in ¹⁴N definitively ruled out dispersive replication and confirmed semi-conservative replication?',
+ imgSrc:'images/55-D1.1-Meselson-Stahl-Experiment.jpg',
+ imgOptions:['All DNA was light (¹⁴N/¹⁴N) after two generations','Two bands appeared — half intermediate (¹⁵N/¹⁴N) and half light (¹⁴N/¹⁴N) — showing that original strands remain intact in some molecules','All DNA was intermediate density, showing complete mixing of old and new DNA','Three bands appeared — heavy, intermediate, and light in equal proportions'],
+ imgAnswer:1,
+ imgExplanation:'After two generations, two bands appeared: one intermediate (¹⁵N/¹⁴N) and one light (¹⁴N/¹⁴N) in a 1:1 ratio. This confirmed semi-conservative replication: the two original ¹⁵N strands each remained intact in separate DNA molecules (each paired with a new ¹⁴N strand = intermediate), while the newly synthesised molecules contained only ¹⁴N (= light). Dispersive replication would have produced a single intermediate band (getting lighter each generation) — two distinct bands ruled it out.'},
+
+// 56 - Gel Electrophoresis (D1.1)
+{id:'D168',type:'img',theme:'D',subtopic:'D1.1',
+ diagram:'The gel electrophoresis diagram shows DNA fragments separated by size. Why do smaller DNA fragments migrate further toward the positive electrode than larger fragments?',
+ imgSrc:'images/56-D1.1-Gel-Electrophoresis.jpg',
+ imgOptions:['Smaller fragments have more negative charges and are more strongly attracted to the positive electrode','Smaller fragments move more easily through the pores of the agarose gel matrix because they experience less resistance than larger fragments','Larger fragments carry more positive charges and are repelled toward the negative electrode','Fragment size does not affect migration — only the DNA sequence determines position'],
+ imgAnswer:1,
+ imgExplanation:'All DNA fragments carry the same charge per unit length (due to their phosphate backbone), so all are attracted equally toward the positive electrode. However, the agarose gel acts as a molecular sieve — larger fragments encounter more resistance moving through the gel pores and migrate more slowly. Smaller fragments slip through easily and travel further in the same time. This size-based separation allows fragments of different lengths to be distinguished and compared to a DNA ladder (size marker).'},
+
+{id:'D169',type:'img',theme:'D',subtopic:'D1.1',
+ diagram:'In the gel electrophoresis diagram, what is the purpose of the DNA ladder (size marker) loaded in one lane?',
+ imgSrc:'images/56-D1.1-Gel-Electrophoresis.jpg',
+ imgOptions:['The DNA ladder provides electrical conductivity for the gel to function','The DNA ladder contains fragments of known sizes that serve as reference points to determine the sizes of unknown DNA fragments in other lanes','The DNA ladder marks the starting position for all fragments','The DNA ladder stains the gel to make all DNA visible under UV light'],
+ imgAnswer:1,
+ imgExplanation:'The DNA ladder (molecular weight marker) contains a mixture of DNA fragments of known, pre-determined sizes. When run alongside unknown samples, it creates a reference scale on the gel. By comparing the position of unknown bands to the ladder bands, you can estimate the size (in base pairs) of the unknown fragments. Without the ladder, you could see relative size differences between samples but could not determine actual fragment sizes. This is essential in DNA profiling, PCR analysis, and restriction mapping.'},
+
+// 57 - Transcription (D1.2)
+{id:'D170',type:'img',theme:'D',subtopic:'D1.2',
+ diagram:'The transcription diagram shows RNA polymerase moving along the template strand. In which direction does RNA polymerase read the template strand, and in which direction is the mRNA synthesised?',
+ imgSrc:'images/57-D1.2-Transcription.jpg',
+ imgOptions:['RNA polymerase reads the template 5\'→3\' and synthesises mRNA 3\'→5\'','RNA polymerase reads the template strand 3\'→5\' and synthesises the mRNA strand 5\'→3\'','RNA polymerase reads both strands simultaneously in opposite directions','RNA polymerase reads the coding strand 5\'→3\' and produces mRNA that is identical to the template'],
+ imgAnswer:1,
+ imgExplanation:'RNA polymerase reads the template (antisense) strand in the 3\'→5\' direction and synthesises the mRNA transcript in the complementary 5\'→3\' direction. The resulting mRNA has the same sequence as the coding (sense) strand, except U replaces T. This directionality is fundamental: RNA polymerase can only add ribonucleotides to the 3\' end of the growing mRNA chain, just as DNA polymerase can only extend in the 5\'→3\' direction.'},
+
+{id:'D171',type:'img',theme:'D',subtopic:'D1.2',
+ diagram:'In the transcription diagram, what signals RNA polymerase where to start and stop transcription on the DNA template?',
+ imgSrc:'images/57-D1.2-Transcription.jpg',
+ imgOptions:['RNA polymerase starts randomly and stops when it runs out of nucleotides','Transcription begins at the promoter sequence (where RNA polymerase binds) and ends at the terminator sequence; in eukaryotes, transcription factors help RNA polymerase recognise the promoter','Transcription begins at the 5\' cap and ends at the poly-A tail','RNA polymerase is guided by ribosomal RNA to start and stop positions'],
+ imgAnswer:1,
+ imgExplanation:'Transcription initiation requires a promoter — a specific DNA sequence upstream of the gene where RNA polymerase (with transcription factors in eukaryotes) binds. The TATA box is a common eukaryotic promoter element. Transcription continues until RNA polymerase reaches a terminator sequence, causing it to detach from the DNA and release the mRNA. In eukaryotes, the pre-mRNA undergoes further processing (5\' cap, poly-A tail, splicing) before becoming mature mRNA.'},
+
+// 58 - mRNA Splicing (D1.2)
+{id:'D172',type:'img',theme:'D',subtopic:'D1.2',
+ diagram:'The mRNA processing diagram shows introns being removed and exons joined. What is the functional advantage of having introns removed during mRNA processing?',
+ imgSrc:'images/58-D1.2-mRNA-Processing-Splicing.jpg',
+ imgOptions:['Introns are removed to make mRNA shorter so it exits the nucleus faster','Removing introns (non-coding sequences) and splicing exons (coding sequences) produces mature mRNA containing only protein-coding information; alternative splicing of the same gene can also produce different proteins','Introns are removed because they would cause the ribosome to stop translation prematurely','Intron removal increases the stability of mRNA in the cytoplasm'],
+ imgAnswer:1,
+ imgExplanation:'Pre-mRNA processing includes: (1) 5\' capping (7-methylguanosine cap protects mRNA and aids ribosome binding), (2) 3\' poly-A tail (aids export and stability), (3) Splicing — introns (non-coding intervening sequences) are removed by spliceosomes and exons (expressed sequences) are joined. Importantly, alternative splicing allows different combinations of exons to be joined from the same pre-mRNA, producing multiple different proteins from a single gene — explaining how ~20,000 human genes can produce >100,000 different proteins.'},
+
+{id:'D173',type:'img',theme:'D',subtopic:'D1.2',
+ diagram:'The splicing diagram shows a spliceosome removing an intron. What does alternative splicing allow, and why is it significant for understanding genome complexity?',
+ imgSrc:'images/58-D1.2-mRNA-Processing-Splicing.jpg',
+ imgOptions:['Alternative splicing allows the same gene to be expressed in multiple cell types simultaneously at different rates','Alternative splicing allows different combinations of exons from the same pre-mRNA to be joined, producing multiple different protein isoforms from a single gene — explaining how ~20,000 human genes produce >100,000 proteins','Alternative splicing only occurs in cancer cells and is always abnormal','Alternative splicing inserts new genetic material from viruses into the mRNA sequence'],
+ imgAnswer:1,
+ imgExplanation:'Alternative splicing is a process where different exons from the same pre-mRNA are selectively included or excluded, producing multiple different mRNA sequences (and thus different proteins) from a single gene. For example, the DSCAM gene in Drosophila can produce over 38,000 different protein isoforms through alternative splicing. This is why the human genome (~20,000 genes) can produce a proteome of >100,000 proteins. It dramatically increases genetic information capacity without increasing gene number.'},
+
+// 59 - Translation (D1.2)
+{id:'D174',type:'img',theme:'D',subtopic:'D1.2',
+ diagram:'The translation diagram shows a ribosome with A, P, and E sites. What occurs at each of these three sites during polypeptide elongation?',
+ imgSrc:'images/59-D1.2-Translation.jpg',
+ imgOptions:['A site = peptide bond formation; P site = tRNA entry; E site = mRNA decoding','A site = aminoacyl-tRNA entry and codon recognition; P site = peptidyl-tRNA holds growing chain; E site = exit site where uncharged tRNA leaves','A site = ATP binding; P site = polypeptide folding; E site = energy release','All three sites perform the same function at different speeds'],
+ imgAnswer:1,
+ imgExplanation:'The ribosome has three tRNA binding sites: (A) Aminoacyl site — where a new aminoacyl-tRNA enters and its anticodon pairs with the mRNA codon; (P) Peptidyl site — where the tRNA carrying the growing polypeptide chain is held; peptide bond formation transfers the chain from P-site tRNA to the A-site amino acid; (E) Exit site — where the now-uncharged tRNA leaves the ribosome. During translocation, the ribosome moves 3 nucleotides (one codon) in the 5\'→3\' direction along the mRNA.'},
+
+{id:'D175',type:'img',theme:'D',subtopic:'D1.2',
+ diagram:'The translation diagram shows multiple ribosomes on the same mRNA strand (polysome). What is the advantage of polysome formation?',
+ imgSrc:'images/59-D1.2-Translation.jpg',
+ imgOptions:['Polysomes slow down translation to ensure accuracy of the polypeptide sequence','Multiple ribosomes can simultaneously translate the same mRNA molecule, greatly increasing the rate of protein production from a single mRNA transcript','Polysomes protect mRNA from degradation by surrounding it with ribosomes','Only one type of protein can be made per polysome to prevent errors'],
+ imgAnswer:1,
+ imgExplanation:'A polysome (polyribosome) forms when multiple ribosomes attach to and simultaneously translate the same mRNA molecule. As one ribosome moves along and begins producing a polypeptide, another ribosome can attach at the 5\' end and begin translation. This dramatically amplifies protein output — a single mRNA can be translated by 10–100 ribosomes simultaneously, each producing a complete polypeptide. This is why cells can rapidly produce large amounts of a specific protein in response to signals.'},
+
+// 60 - Point Mutations (D1.3)
+{id:'D176',type:'img',theme:'D',subtopic:'D1.3',
+ diagram:'The point mutations diagram shows missense, nonsense, and silent mutations. Which type of point mutation is most likely to have the most severe effect on protein function?',
+ imgSrc:'images/60-D1.3-Point-Mutations.jpg',
+ imgOptions:['Silent mutation — because it changes the most nucleotides','Missense mutation — because it always results in a completely non-functional protein','Nonsense mutation — because it introduces a premature stop codon, producing a truncated, usually non-functional protein','All point mutations have identical effects on protein function'],
+ imgAnswer:2,
+ imgExplanation:'A nonsense mutation changes a codon to a stop codon (UAA, UAG, or UGA), causing premature termination of translation. The resulting truncated protein is missing amino acids from the C-terminus and is typically non-functional. Missense mutations substitute one amino acid for another — effects range from severe (if in the active site) to negligible (if conservative substitution in non-critical region). Silent mutations change the nucleotide but not the amino acid (due to codon degeneracy) — usually no effect on protein.'},
+
+{id:'D177',type:'img',theme:'D',subtopic:'D1.3',
+ diagram:'The diagram shows a frameshift mutation caused by a single nucleotide insertion. Why do frameshift mutations typically have more severe effects than point substitutions?',
+ imgSrc:'images/60-D1.3-Point-Mutations.jpg',
+ imgOptions:['Frameshift mutations only affect the first codon and leave the rest of the protein unchanged','Frameshift mutations shift the reading frame of all codons downstream of the insertion/deletion, changing every subsequent amino acid and often introducing a premature stop codon','Frameshift mutations are only serious if they occur in introns','Frameshift mutations always produce longer proteins with extra amino acids'],
+ imgAnswer:1,
+ imgExplanation:'A frameshift mutation (insertion or deletion of non-multiples of 3 nucleotides) shifts the reading frame — the grouping of nucleotides into triplet codons — for every codon downstream. This alters every amino acid after the mutation point, producing a completely different (and usually non-functional) polypeptide sequence. A premature stop codon is often introduced in the scrambled sequence. This is why single base insertions/deletions are generally far more damaging than point substitutions, which only affect one amino acid.'},
+
+// 61 - CRISPR-Cas9 (D1.3)
+{id:'D178',type:'img',theme:'D',subtopic:'D1.3',
+ diagram:'The CRISPR-Cas9 diagram shows guide RNA directing Cas9 to a specific DNA sequence. How does the guide RNA achieve target specificity?',
+ imgSrc:'images/61-D1.3-CRISPR-Cas9-Mechanism.jpg',
+ imgOptions:['The guide RNA binds to Cas9 and activates it regardless of DNA sequence','The guide RNA contains a ~20-nucleotide sequence complementary to the target DNA sequence; base pairing between guide RNA and target DNA directs Cas9 to cut at that precise location','The guide RNA recognises the PAM sequence only and Cas9 cuts randomly nearby','The guide RNA works by blocking transcription rather than cutting DNA'],
+ imgAnswer:1,
+ imgExplanation:'The guide RNA (gRNA) contains two components: (1) a scaffold sequence that binds to Cas9, and (2) a ~20-nucleotide spacer sequence complementary to the target DNA. The gRNA scans the genome and base-pairs with matching sequences adjacent to a PAM sequence (NGG in S. pyogenes Cas9). When a match is found, Cas9 undergoes a conformational change and its two nuclease domains (RuvC and HNH) cut both strands of the DNA, creating a double-strand break. This programmability makes CRISPR far simpler than previous gene editing tools.'},
+
+{id:'D179',type:'img',theme:'D',subtopic:'D1.3',
+ diagram:'After Cas9 creates a double-strand break (shown in the diagram), what are the two main cellular repair pathways, and how do they differ in their outcomes for gene editing?',
+ imgSrc:'images/61-D1.3-CRISPR-Cas9-Mechanism.jpg',
+ imgOptions:['Both repair pathways produce identical outcomes — precise insertion of a new gene sequence','NHEJ (non-homologous end joining) is error-prone and causes insertions/deletions (knockouts); HDR (homology-directed repair) uses a provided template for precise edits if a donor template is supplied','NHEJ always repairs the break perfectly; HDR always causes harmful mutations','Both pathways only occur in prokaryotes — eukaryotic cells cannot repair CRISPR-induced breaks'],
+ imgAnswer:1,
+ imgExplanation:'After Cas9 cuts both DNA strands, two repair pathways compete: (1) NHEJ — the cell\'s quick but error-prone repair that often introduces small insertions or deletions (indels) at the cut site. This disrupts the reading frame and typically knocks out the gene — useful for creating loss-of-function mutations. (2) HDR — if a donor DNA template is provided with the CRISPR components, the cell uses it as a template for precise repair, allowing specific sequences to be inserted or corrected. HDR is less efficient but enables precise gene correction for therapeutic applications.'},
+
+// 62 - Mitosis (D2.1)
+{id:'D180',type:'img',theme:'D',subtopic:'D2.1',
+ diagram:'The mitosis diagram shows chromosomes at metaphase. What is the correct sequence of phases of mitosis shown, and what is the key event at each phase?',
+ imgSrc:'images/62-D2.1-Mitosis-Phases.jpg',
+ imgOptions:['G1 → S → G2 → M; DNA replicates during M phase','Prophase → Metaphase → Anaphase → Telophase; chromosomes condense, align at equator, sister chromatids separate, and two nuclei reform respectively','Interphase → Mitosis → Cytokinesis → Meiosis; cells alternate between these phases','Metaphase → Prophase → Telophase → Anaphase; the phases can occur in any order'],
+ imgAnswer:1,
+ imgExplanation:'Mitosis proceeds through four phases: (P) Prophase — chromosomes condense, spindle forms, nuclear envelope breaks down; (M) Metaphase — chromosomes align at the cell equator (metaphase plate), attached to spindle fibres from opposite poles; (A) Anaphase — sister chromatids separate as spindle fibres shorten, pulled to opposite poles; (T) Telophase — nuclear envelopes reform around each set of chromosomes, chromosomes decondense. Cytokinesis then divides the cytoplasm. Remember: PMAT.'},
+
+{id:'D181',type:'img',theme:'D',subtopic:'D2.1',
+ diagram:'At which phase of mitosis shown in the diagram would a cell biologist count chromosomes most easily, and how many chromosomes would be visible in a human cell at this stage?',
+ imgSrc:'images/62-D2.1-Mitosis-Phases.jpg',
+ imgOptions:['Anaphase — because chromosomes are moving and spread out evenly','Telophase — because chromosomes are reforming into nuclei','Metaphase — because chromosomes are maximally condensed and aligned at the equator; 46 chromosomes (23 pairs of sister chromatids) would be visible in a human cell','Prophase — because chromosomes have just finished replicating and are easiest to count'],
+ imgAnswer:2,
+ imgExplanation:'Metaphase is the optimal stage for chromosome counting (karyotyping) because: chromosomes are maximally condensed (easiest to see), they are aligned in a single plane (metaphase plate), and each chromosome consists of two sister chromatids clearly attached at the centromere. A human somatic cell at metaphase shows 46 chromosomes (each consisting of 2 sister chromatids joined at the centromere = 92 chromatids total). Karyotype analysis for genetic disorders (e.g. Down syndrome — trisomy 21) is performed on metaphase chromosomes.'},
+
+// 63 - Meiosis (D2.1)
+{id:'D182',type:'img',theme:'D',subtopic:'D2.1',
+ diagram:'The meiosis overview diagram shows two divisions producing four haploid cells. How does meiosis I differ fundamentally from meiosis II in terms of what separates?',
+ imgSrc:'images/63-D2.1-Meiosis-Overview.jpg',
+ imgOptions:['Both meiosis I and meiosis II separate sister chromatids — they are identical divisions','Meiosis I separates homologous chromosome pairs (reducing diploid to haploid); meiosis II separates sister chromatids (like mitosis) — producing 4 haploid cells','Meiosis I produces 2 haploid cells; meiosis II produces 2 diploid cells that then recombine','Meiosis I separates sister chromatids; meiosis II separates homologous chromosomes'],
+ imgAnswer:1,
+ imgExplanation:'Meiosis I is the reductional division — homologous chromosomes (that have exchanged segments by crossing over in prophase I) separate to opposite poles, halving the chromosome number from diploid (2n) to haploid (n). Each cell still has replicated chromosomes (sister chromatids joined). Meiosis II is the equational division — sister chromatids separate (like mitosis), producing 4 genetically unique haploid cells (gametes in animals, spores in plants/fungi). The key distinction: homologs separate in I, sister chromatids in II.'},
+
+{id:'D183',type:'img',theme:'D',subtopic:'D2.1',
+ diagram:'The meiosis diagram shows why four genetically unique cells are produced. What are the TWO main sources of genetic variation introduced during meiosis?',
+ imgSrc:'images/63-D2.1-Meiosis-Overview.jpg',
+ imgOptions:['Mutation and natural selection — these create new alleles during meiosis','Crossing over (recombination) during prophase I, and independent assortment of homologous chromosomes during metaphase I — both create new combinations of alleles','DNA replication errors during S phase and cytokinesis failures','Gene duplication during meiosis II and deletion during meiosis I'],
+ imgAnswer:1,
+ imgExplanation:'Two mechanisms create genetic variation in meiosis: (1) Crossing over (recombination) — during prophase I, homologous chromosomes pair up (synapsis) and exchange segments at chiasmata, creating recombinant chromosomes with new allele combinations. (2) Independent assortment — during metaphase I, each pair of homologous chromosomes aligns randomly at the equator, so maternal and paternal chromosomes sort independently into cells. With 23 chromosome pairs in humans, this alone produces 2²³ (~8 million) possible gamete combinations — before crossing over.'},
+
+// 64 - Crossing Over (D2.1)
+{id:'D184',type:'img',theme:'D',subtopic:'D2.1',
+ diagram:'The crossing over diagram shows chiasmata between homologous chromosomes during prophase I. What is exchanged at a chiasma, and what is the genetic consequence?',
+ imgSrc:'images/64-D2.1-Crossing-Over-Chiasmata.jpg',
+ imgOptions:['Whole chromosomes are exchanged between homologs, producing entirely new chromosomes','Segments of DNA (including alleles) are reciprocally exchanged between non-sister chromatids of homologous chromosomes, producing recombinant chromatids with new allele combinations','Only RNA is exchanged at chiasmata — DNA itself does not cross over','Chiasmata exchange occurs between sister chromatids of the same chromosome'],
+ imgAnswer:1,
+ imgExplanation:'During prophase I, homologous chromosomes pair tightly (synapsis) and non-sister chromatids (one from each homolog) break and rejoin at chiasmata. This reciprocal exchange of DNA segments (crossing over/recombination) shuffles alleles between homologs. A chromatid that receives a segment from the other homolog becomes a recombinant chromatid — carrying a unique combination of alleles not present in either parent chromosome. Multiple crossovers can occur along each chromosome pair, generating enormous allele diversity.'},
+
+// 65 - Osmosis Plant Cells (D2.3)
+{id:'D185',type:'img',theme:'D',subtopic:'D2.3',
+ diagram:'The plant cell osmosis diagram shows cells in hypotonic, isotonic, and hypertonic solutions. In a hypertonic solution, what happens to the plant cell and what term describes this state?',
+ imgSrc:'images/65-D2.3-Osmosis-Plant-Cells.jpg',
+ imgOptions:['The plant cell swells and bursts (lysis) because water enters by osmosis','The plant cell loses water by osmosis, the vacuole shrinks, and the cell membrane pulls away from the cell wall — a state called plasmolysis','The plant cell remains unchanged because the cell wall prevents any water movement','The plant cell becomes turgid as water is pumped in by active transport'],
+ imgAnswer:1,
+ imgExplanation:'In a hypertonic solution (lower water potential outside), water moves OUT of the plant cell by osmosis. The vacuole shrinks, the cytoplasm volume decreases, and eventually the cell membrane pulls away from the rigid cell wall — this is plasmolysis. The cell is described as plasmolysed or flaccid. Unlike animal cells, plant cells don\'t burst in hypotonic solutions because the cell wall provides rigidity — instead they become turgid (swollen) as turgor pressure builds. Turgor is essential for non-woody plant support.'},
+
+// 66 - Osmosis Animal Cells (D2.3)
+{id:'D186',type:'img',theme:'D',subtopic:'D2.3',
+ diagram:'The animal cell osmosis diagram shows a red blood cell in three different solutions. What happens to the cell in a hypotonic solution, and why does this differ from a plant cell in the same conditions?',
+ imgSrc:'images/66-D2.3-Osmosis-Animal-Cells.jpg',
+ imgOptions:['The animal cell becomes turgid and firm like a plant cell because of osmotic pressure','The animal cell swells and may lyse (crenation) because it has no cell wall to resist the influx of water — unlike plant cells which become turgid but remain intact due to their rigid cell wall','The animal cell shrinks in a hypotonic solution as water leaves the cell','Animal cells are unaffected by hypotonic solutions because they regulate water using contractile vacuoles'],
+ imgAnswer:1,
+ imgExplanation:'In a hypotonic solution (higher water potential outside), water enters the animal cell by osmosis. Without a cell wall to resist expansion, the cell swells and may burst (lyse/haemolysis in red blood cells). In contrast, plant cells in hypotonic solution also take in water but the rigid cell wall generates turgor pressure that resists further expansion — the cell becomes turgid but intact. In a hypertonic solution, animal cells shrivel (crenation) as water leaves, while plant cells become plasmolysed.'},
+
+// 67 - Menstrual Cycle Graph (D3.1)
+{id:'D187',type:'img',theme:'D',subtopic:'D3.1',
+ diagram:'The menstrual cycle graph shows hormone levels over 28 days. Which hormone surge (shown as a sharp peak around day 13–14) triggers ovulation?',
+ imgSrc:'images/67-D3.1-Menstrual-Cycle-Graph.jpg',
+ imgOptions:['A sharp rise in progesterone triggers ovulation at day 14','A surge in LH (luteinising hormone) at approximately day 13–14 triggers the release of the secondary oocyte from the ovarian follicle','A rise in FSH causes the oocyte to be released at day 14','Oestrogen remains high throughout the cycle and triggers ovulation at its peak'],
+ imgAnswer:1,
+ imgExplanation:'The LH (luteinising hormone) surge — a dramatic spike around day 13–14 — is the direct trigger for ovulation. High oestrogen levels (from the growing follicle) switch from negative to positive feedback on the anterior pituitary, triggering the LH surge. LH causes the mature Graafian follicle to rupture and release the secondary oocyte. After ovulation, the follicle remnant becomes the corpus luteum, which secretes progesterone (maintaining the endometrium). If no fertilisation occurs, the corpus luteum degenerates and progesterone falls, triggering menstruation.'},
+
+{id:'D188',type:'img',theme:'D',subtopic:'D3.1',
+ diagram:'The cycle graph shows progesterone levels rising after day 14 and falling around day 28. What does this fall in progesterone cause, and what structure was responsible for its production?',
+ imgSrc:'images/67-D3.1-Menstrual-Cycle-Graph.jpg',
+ imgOptions:['The fall in progesterone triggers ovulation and is produced by the Graafian follicle','The corpus luteum (formed from the ruptured follicle after ovulation) produces progesterone; when it degenerates (~day 24–28), progesterone falls, the endometrium can no longer be maintained, and menstruation begins','The fall in progesterone triggers FSH release and is produced by the anterior pituitary','Progesterone is produced by the uterine lining; its fall triggers implantation of an embryo'],
+ imgAnswer:1,
+ imgExplanation:'After ovulation, the ruptured follicle transforms into the corpus luteum, which produces progesterone (and some oestrogen). Progesterone maintains the thickened, vascularised endometrium (uterine lining) to support a potential implantation. If fertilisation does not occur, the corpus luteum degenerates (~day 24), progesterone and oestrogen levels fall sharply, the endometrium loses its blood supply and is shed — menstruation begins (day 1 of the new cycle). If fertilisation occurs, hCG from the embryo maintains the corpus luteum.'},
+
+// 68 - Monohybrid Cross (D3.2)
+{id:'D189',type:'img',theme:'D',subtopic:'D3.2',
+ diagram:'The monohybrid Punnett square shows a cross between two heterozygous parents (Aa × Aa). What is the expected phenotypic ratio of the offspring?',
+ imgSrc:'images/68-D3.2-Monohybrid-Punnett-Square.jpg',
+ imgOptions:['1 dominant : 1 recessive (50:50)','3 dominant phenotype : 1 recessive phenotype','2 dominant : 2 recessive','All offspring show the dominant phenotype'],
+ imgAnswer:1,
+ imgExplanation:'An Aa × Aa cross (both parents heterozygous) produces offspring in the ratio: AA (25%) : Aa (50%) : aa (25%). Since AA and Aa both express the dominant phenotype (A is dominant), the phenotypic ratio is 3 dominant : 1 recessive. The genotypic ratio is 1 AA : 2 Aa : 1 aa. This is Mendel\'s classic monohybrid ratio and demonstrates the law of segregation — alleles separate during gamete formation and recombine randomly at fertilisation.'},
+
+{id:'D190',type:'img',theme:'D',subtopic:'D3.2',
+ diagram:'Using the Punnett square diagram, if the allele for brown eyes (B) is dominant over blue eyes (b), what is the probability that two heterozygous parents (Bb × Bb) will have a child with blue eyes?',
+ imgSrc:'images/68-D3.2-Monohybrid-Punnett-Square.jpg',
+ imgOptions:['0% — two brown-eyed parents cannot have a blue-eyed child','25% — one in four offspring (bb genotype) will have blue eyes','50% — half the offspring will have blue eyes','75% — three quarters of offspring will have blue eyes'],
+ imgAnswer:1,
+ imgExplanation:'In a Bb × Bb cross, the Punnett square gives: BB (25%), Bb (50%), bb (25%). Only bb offspring have blue eyes — a 25% (1/4) probability. This explains how two brown-eyed heterozygous parents can have a blue-eyed child. Note: eye colour genetics is actually more complex in reality (polygenic), but this simplified model illustrates Mendelian inheritance. The key concept: carriers (Bb) appear brown-eyed but carry the recessive allele, which can be expressed in offspring.'},
+
+// 69 - X-linked Cross (D3.2)
+{id:'D191',type:'img',theme:'D',subtopic:'D3.2',
+ diagram:'The X-linked Punnett square shows a cross for colour blindness (X-linked recessive). A carrier female (X^B X^b) is crossed with a normal-vision male (X^B Y). What proportion of SONS will be colour blind?',
+ imgSrc:'images/69-D3.2-X-Linked-Punnett-Square.jpg',
+ imgOptions:['0% of sons — sons inherit their X from their father, who has normal vision','50% of sons will be colour blind (X^b Y genotype) — sons inherit X from mother, who carries the recessive allele on one X','25% of all children will be colour blind sons','100% of sons will be colour blind because the mother is a carrier'],
+ imgAnswer:1,
+ imgExplanation:'Sons inherit their X chromosome from their MOTHER and Y from their father. A carrier mother (X^B X^b) produces two types of X-bearing eggs: X^B and X^b (50% each). Sons who receive X^b (50% of sons) will be colour blind (X^b Y) because they have no second X chromosome to mask the recessive allele — males are hemizygous for X-linked genes. Sons who receive X^B (50%) will have normal vision. Daughters cannot be colour blind in this cross (they receive X^B from father).'},
+
+// 70 - ABO Blood Groups (D3.2)
+{id:'D192',type:'img',theme:'D',subtopic:'D3.2',
+ diagram:'The ABO blood group diagram shows codominant inheritance with three alleles (I^A, I^B, I^O). What makes the ABO system an example of both codominance and multiple alleles?',
+ imgSrc:'images/70-D3.2-ABO-Blood-Groups.jpg',
+ imgOptions:['ABO is codominant because I^A and I^B are both recessive to I^O; multiple alleles means there are two alleles per person','I^A and I^B are codominant — both are fully expressed when present together (AB blood type); multiple alleles means there are THREE alleles in the population (I^A, I^B, I^O), though each individual only carries two','ABO shows incomplete dominance because AB is intermediate between A and B','The ABO system is not an example of multiple alleles because each person only has two alleles'],
+ imgAnswer:1,
+ imgExplanation:'Multiple alleles: the ABO gene has THREE alleles in the human population — I^A, I^B, and I^O — though each person only inherits two. Codominance: when both I^A and I^B alleles are present (I^A I^B genotype), BOTH are fully expressed — type AB blood has BOTH A and B antigens on red blood cells. Neither is dominant over the other. I^O is recessive to both I^A and I^B. This gives four blood types: A (I^A I^A or I^A I^O), B (I^B I^B or I^B I^O), AB (I^A I^B), O (I^O I^O).'},
+
+// 71 - Blood Glucose Regulation (D3.3)
+{id:'D193',type:'img',theme:'D',subtopic:'D3.3',
+ diagram:'The blood glucose regulation diagram shows the roles of insulin and glucagon. What triggers insulin secretion and what is its effect on blood glucose?',
+ imgSrc:'images/71-D3.3-Blood-Glucose-Regulation.jpg',
+ imgOptions:['Low blood glucose triggers insulin release; insulin raises blood glucose by breaking down glycogen','High blood glucose (after a meal) triggers β cells in the islets of Langerhans to secrete insulin; insulin lowers blood glucose by stimulating glucose uptake by cells and glycogen synthesis in liver and muscle','Glucagon triggers insulin secretion as a paired response','Insulin is secreted continuously regardless of blood glucose levels'],
+ imgAnswer:1,
+ imgExplanation:'When blood glucose rises (e.g. after eating), β cells in the islets of Langerhans (pancreas) detect this and secrete insulin into the blood. Insulin binds to receptors on target cells (liver, muscle, adipose tissue) and: (1) increases glucose uptake by cells (via GLUT4 transporters in muscle/fat), (2) stimulates glycogenesis (glucose → glycogen storage in liver and muscle), (3) inhibits glycogenolysis and gluconeogenesis. Blood glucose returns to ~90 mg/dL. This is classic negative feedback homeostasis.'},
+
+{id:'D194',type:'img',theme:'D',subtopic:'D3.3',
+ diagram:'The diagram shows glucagon\'s role in blood glucose regulation. What triggers glucagon release and how does it raise blood glucose?',
+ imgSrc:'images/71-D3.3-Blood-Glucose-Regulation.jpg',
+ imgOptions:['High blood glucose triggers glucagon release; glucagon stimulates insulin production','Low blood glucose triggers α cells in the islets of Langerhans to secrete glucagon; glucagon stimulates glycogenolysis (glycogen → glucose) and gluconeogenesis in the liver, raising blood glucose','Glucagon is released after exercise only and has no effect on glycogen','Glucagon lowers blood glucose by stimulating glucose uptake in muscle cells'],
+ imgAnswer:1,
+ imgExplanation:'When blood glucose falls (e.g. during fasting or exercise), α cells in the islets of Langerhans secrete glucagon. Glucagon acts primarily on the liver to: (1) stimulate glycogenolysis (glycogen → glucose, released into blood), (2) stimulate gluconeogenesis (synthesis of glucose from amino acids, lactate, and glycerol). Blood glucose rises back to normal. Insulin and glucagon are antagonistic hormones — they work in opposition as a push-pull system for precise blood glucose homeostasis.'},
+
+// 72 - Thermoregulation (D3.3)
+{id:'D195',type:'img',theme:'D',subtopic:'D3.3',
+ diagram:'The thermoregulation diagram shows responses to overheating and overcooling. When body temperature rises above 37°C, what mechanisms does the hypothalamus activate to cool the body?',
+ imgSrc:'images/72-D3.3-Thermoregulation.jpg',
+ imgOptions:['The hypothalamus triggers shivering and vasoconstriction to cool the body','The hypothalamus activates vasodilation of skin arterioles (increasing heat loss by radiation) and sweating (evaporative cooling) to lower body temperature back to 37°C','The hypothalamus triggers increased metabolic rate to burn off excess heat','The hypothalamus causes piloerection to trap a layer of cool air near the skin'],
+ imgAnswer:1,
+ imgExplanation:'When detected temperature rises above the set point (~37°C), the hypothalamus (thermostat of the body) coordinates cooling responses: (1) Vasodilation — skin arterioles dilate, increasing blood flow to the skin surface, increasing heat loss by radiation and convection (skin flushes); (2) Sweating — eccrine sweat glands produce sweat; evaporation removes latent heat; (3) Reduced metabolic rate. These are negative feedback responses — they oppose the change and return temperature toward the set point.'},
+
+// 73 - Endler Guppy Experiment (D4.1)
+{id:'D196',type:'img',theme:'D',subtopic:'D4.1',
+ diagram:'The Endler guppy experiment diagram shows guppies evolving different colouration in high vs low predation pools. What does this demonstrate about natural selection?',
+ imgSrc:'images/73-D4.1-Endler-Guppy-Experiment.jpg',
+ imgOptions:['Guppies consciously chose their colouration to match their environment','In high-predation pools, brightly coloured males were selectively eaten, so dull-coloured males survived and reproduced more — demonstrating directional natural selection acting on heritable variation in colour','All guppy populations evolved the same colouration regardless of predation level','Guppy colouration changed through Lamarckian inheritance — individual fish changed colour during their lifetime'],
+ imgAnswer:1,
+ imgExplanation:'Endler\'s experiment demonstrated natural selection in real time. In high-predation pools, brightly coloured males were more visible to predators and were selectively eliminated — dull males survived and reproduced more, so the population evolved toward duller colouration over generations. In low-predation pools, bright males were preferred by females (sexual selection) without predation cost, so populations evolved brighter colouration. This shows: (1) heritable variation exists in colour, (2) differential survival and reproduction, (3) evolution of population allele frequencies over time.'},
+
+{id:'D197',type:'img',theme:'D',subtopic:'D4.1',
+ diagram:'The Endler experiment is described as evidence for evolution by natural selection. What are the THREE requirements for natural selection that this experiment demonstrates?',
+ imgSrc:'images/73-D4.1-Endler-Guppy-Experiment.jpg',
+ imgOptions:['Mutation, migration, and genetic drift — the three forces of evolution demonstrated','Heritable variation in colouration exists within guppy populations; differential survival and reproduction (selection pressure from predation); inheritance of colour genes — leading to change in population allele frequencies over generations','Random mating, population size, and geographic isolation — the Hardy-Weinberg conditions','Learning, adaptation, and speciation — the three outcomes of the experiment'],
+ imgAnswer:1,
+ imgExplanation:'Natural selection requires: (1) Variation — guppies show heritable variation in spot size, number, and colour (genetic basis demonstrated); (2) Selection pressure — predation creates differential survival: dull fish survive more in high-predation environments; (3) Heritability — offspring resemble parents in colouration. Result: allele frequencies change across generations (evolution). Endler also showed that when he transferred guppies to high-predation pools, they evolved duller colouration within ~15 generations — providing direct experimental evidence of natural selection.'},
+
+// 74 - Eutrophication (D4.2)
+{id:'D198',type:'img',theme:'D',subtopic:'D4.2',
+ diagram:'The eutrophication sequence diagram shows a lake changing over time. What human activity typically initiates the eutrophication process shown?',
+ imgSrc:'images/74-D4.2-Eutrophication-Sequence.jpg',
+ imgOptions:['Overfishing of top predators causes the food web to collapse, leading to algal growth','Excess nutrient runoff (especially nitrates and phosphates from agricultural fertilisers and sewage) enters the lake, causing explosive algal bloom growth','Industrial CO₂ emissions directly fertilise aquatic algae through the water','Invasive fish species eat aquatic plants, releasing nutrients that feed algal growth'],
+ imgAnswer:1,
+ imgExplanation:'Eutrophication begins with nutrient enrichment — primarily nitrates (NO₃⁻) and phosphates (PO₄³⁻) from agricultural fertiliser runoff, livestock waste, and sewage effluent. These nutrients act as fertilisers for algae and cyanobacteria, triggering explosive algal bloom growth. The blooms cover the water surface, blocking light to submerged plants (which die), and when the algae die, aerobic decomposing bacteria consume massive amounts of dissolved oxygen — creating a hypoxic (oxygen-depleted) dead zone where fish and invertebrates cannot survive.'},
+
+// 75 - Biomagnification (D4.2)
+{id:'D199',type:'img',theme:'D',subtopic:'D4.2',
+ diagram:'The biomagnification diagram shows increasing DDT concentrations at each trophic level. Why do fat-soluble toxins like DDT concentrate progressively at higher trophic levels?',
+ imgSrc:'images/75-D4.2-Biomagnification.jpg',
+ imgOptions:['Top predators eat more frequently than lower trophic organisms, accumulating toxins through higher feeding rates','Fat-soluble toxins are not metabolised or excreted — they accumulate in fatty tissues. Each organism consumes many organisms from the level below, concentrating the toxin. Top predators accumulate the highest concentrations because they eat many contaminated prey items across their lifetime','Toxins are actively transported upward through the food chain by bacteria','Biomagnification only occurs in aquatic ecosystems where water dilutes toxins at lower levels but concentrates them higher up'],
+ imgAnswer:1,
+ imgExplanation:'Biomagnification (biological magnification) occurs because: (1) Fat-soluble toxins (DDT, PCBs, mercury) bind to fatty tissue and are NOT excreted — they persist in the body; (2) Predators must eat many prey to survive — a falcon eats hundreds of fish, each containing accumulated toxin; (3) The toxin from all prey items adds to the predator\'s body burden. Concentrations can be 10-million-fold higher in apex predators than in water. DDT caused eggshell thinning in raptors — a classic example leading to near-extinction of bald eagles and ospreys.'},
+
+// 76 - Sea Otter Cascade (D4.2)
+{id:'D200',type:'img',theme:'D',subtopic:'D4.2',
+ diagram:'The sea otter trophic cascade diagram shows how otter removal affects the entire ecosystem. What is a trophic cascade, as illustrated by this example?',
+ imgSrc:'images/76-D4.2-Sea-Otter-Trophic-Cascade.jpg',
+ imgOptions:['A trophic cascade occurs when a new species enters an ecosystem and directly outcompetes all others','A trophic cascade is the indirect effect a top predator has on lower trophic levels — removing sea otters releases sea urchin populations, which overgraze kelp forests, destroying the habitat for many other species','A trophic cascade describes the flow of energy from producers to apex predators','A trophic cascade only occurs in marine ecosystems where food chains are longer than terrestrial ones'],
+ imgAnswer:1,
+ imgExplanation:'A trophic cascade is an indirect ecological effect where changes at one trophic level cause significant changes two or more levels away. In the classic sea otter example: (1) Sea otters eat sea urchins (controlling their population); (2) When otters were hunted to near-extinction, sea urchin populations exploded; (3) Urchins overgrazing eliminated kelp forests; (4) Without kelp habitat, hundreds of species (fish, invertebrates, marine mammals) declined. This demonstrates that keystone predators have disproportionate ecosystem effects relative to their biomass.'},
+
+// 77 - Keeling Curve (D4.3)
+{id:'D201',type:'img',theme:'D',subtopic:'D4.3',
+ diagram:'The Keeling Curve graph shows atmospheric CO₂ concentration measured at Mauna Loa since 1958. What does the overall upward trend demonstrate?',
+ imgSrc:'images/77-D4.3-Keeling-Curve-Graph.jpg',
+ imgOptions:['CO₂ levels fluctuate randomly with no long-term trend, reflecting natural variability','The Keeling Curve shows a consistent long-term rise in atmospheric CO₂ from ~315 ppm in 1958 to over 420 ppm today, demonstrating that human activities (primarily fossil fuel combustion and deforestation) are adding CO₂ to the atmosphere faster than natural processes can remove it','CO₂ levels are rising only due to increased volcanic activity since 1958','The upward trend shows that photosynthesis rates are declining globally'],
+ imgAnswer:1,
+ imgExplanation:'The Keeling Curve (Charles Keeling, Scripps Institution) is the longest continuous record of atmospheric CO₂. The consistent upward trend from ~315 ppm (1958) to >420 ppm (2023) demonstrates net accumulation of CO₂ in the atmosphere — primarily from fossil fuel combustion, cement production, and deforestation. This provides direct evidence that human activities are altering atmospheric composition. The Keeling Curve is one of the most important datasets in climate science.'},
+
+{id:'D202',type:'img',theme:'D',subtopic:'D4.3',
+ diagram:'The Keeling Curve shows a regular seasonal zigzag superimposed on the rising trend. What causes this annual oscillation?',
+ imgSrc:'images/77-D4.3-Keeling-Curve-Graph.jpg',
+ imgOptions:['The seasonal zigzag is caused by annual changes in volcanic eruptions','The oscillation reflects seasonal changes in photosynthesis — CO₂ falls in Northern Hemisphere spring/summer as plants absorb CO₂ for photosynthesis, and rises in autumn/winter as respiration and decomposition continue with less photosynthesis','The zigzag is caused by annual cycles in human fossil fuel consumption','The oscillation occurs because the ocean absorbs CO₂ only in winter months'],
+ imgAnswer:1,
+ imgExplanation:'The annual oscillation on the Keeling Curve reflects the "breathing" of the Northern Hemisphere\'s terrestrial vegetation (which dominates because most land is in the NH): Spring/Summer — plants grow vigorously, absorbing CO₂ by photosynthesis faster than it\'s produced; CO₂ falls by ~5–8 ppm. Autumn/Winter — leaves fall, photosynthesis decreases, decomposition and respiration continue; CO₂ rises. This seasonal ~5 ppm swing is superimposed on the long-term +2–3 ppm/year upward trend from fossil fuels.'},
+
+// 78 - Coral Bleaching (D4.3)
+{id:'D203',type:'img',theme:'D',subtopic:'D4.3',
+ diagram:'The coral bleaching diagram shows healthy vs bleached coral. What causes coral bleaching, and why does it threaten coral reef ecosystems?',
+ imgSrc:'images/78-D4.3-Coral-Bleaching.jpg',
+ imgOptions:['Coral bleaching is caused by paint pollution turning corals white; it is purely cosmetic','Elevated sea temperatures (>1–2°C above normal for extended periods) stress the coral-zooxanthellae mutualism — corals expel their symbiotic algae (zooxanthellae), losing both colour and their primary food source; prolonged bleaching leads to coral death and reef collapse','Coral bleaching occurs when CO₂ dissolves in seawater, directly bleaching coral pigments','Bleaching is a natural seasonal phenomenon with no lasting ecological impact'],
+ imgAnswer:1,
+ imgExplanation:'Coral bleaching occurs when thermal stress disrupts the mutualistic relationship between coral polyps and their symbiotic dinoflagellate algae (zooxanthellae). Zooxanthellae provide ~90% of the coral\'s energy through photosynthesis and give coral its colour. When temperatures exceed the thermal threshold (even 1–2°C above the seasonal maximum for 4+ weeks), zooxanthellae produce harmful reactive oxygen species; the coral expels them, turning white (bleached). Without zooxanthellae, corals starve. If temperatures return to normal quickly, recovery is possible; prolonged bleaching causes death. Reef collapse eliminates habitat for ~25% of all marine species.'},
+
+// 79 - Ocean Acidification (D4.3)
+{id:'D204',type:'img',theme:'D',subtopic:'D4.3',
+ diagram:'The ocean acidification diagram shows decreasing ocean pH as CO₂ increases. How does atmospheric CO₂ cause ocean acidification?',
+ imgSrc:'images/79-D4.3-Ocean-Acidification.jpg',
+ imgOptions:['CO₂ pollution directly deposits acid into the ocean through acid rain','CO₂ dissolves in seawater to form carbonic acid (H₂CO₃), which dissociates releasing H⁺ ions, lowering ocean pH from ~8.2 to ~8.1 since industrialisation — a 26% increase in H⁺ ion concentration','Ocean acidification is caused by industrial chemicals dumped into the sea, not by CO₂','CO₂ causes ocean warming which releases stored acids from sediments'],
+ imgAnswer:1,
+ imgExplanation:'Oceans absorb ~25-30% of human CO₂ emissions. CO₂ + H₂O → H₂CO₃ (carbonic acid) → H⁺ + HCO₃⁻. The released H⁺ ions lower ocean pH. Since pre-industrial times, ocean pH has fallen from ~8.2 to ~8.1 — a seemingly small change but representing a 26% increase in H⁺ concentration (pH is logarithmic). H⁺ ions also react with carbonate ions (CO₃²⁻), reducing their availability. Marine organisms that build calcium carbonate shells/skeletons (corals, molluscs, echinoderms, some plankton) struggle to calcify in more acidic water — threatening food webs globally.'},
+
+// 80 - Climate Feedback Loops (D4.3)
+{id:'D205',type:'img',theme:'D',subtopic:'D4.3',
+ diagram:'The climate feedback loops diagram shows positive and negative feedback mechanisms. What is the ice-albedo feedback shown, and why is it described as a positive feedback loop?',
+ imgSrc:'images/80-D4.3-Climate-Feedback-Loops.jpg',
+ imgOptions:['Ice-albedo is a negative feedback — more ice reflects more sunlight, cooling the climate and reducing warming','Ice-albedo is a positive feedback — warming melts ice and snow, exposing darker ocean or land beneath; the darker surface absorbs more solar radiation, causing further warming, which melts more ice — amplifying the original warming','Ice-albedo feedback occurs only in Antarctica and has no effect on global temperatures','Ice-albedo feedback is balanced by negative feedback from increased cloud formation, making it neutral overall'],
+ imgAnswer:1,
+ imgExplanation:'The ice-albedo feedback is a positive feedback loop (amplifying, not stabilising): (1) Initial warming melts Arctic sea ice and snow; (2) Ice and snow have high albedo (~0.8–0.9, reflecting 80–90% of sunlight); (3) Exposed ocean and land have low albedo (~0.06–0.4, absorbing more sunlight); (4) More heat absorbed → more warming → more ice melts. This self-reinforcing cycle amplifies Arctic warming — the Arctic is warming ~4× faster than the global average (Arctic amplification). It is a positive feedback because it reinforces/amplifies the original change rather than opposing it.'},
+
+{id:'D206',type:'img',theme:'D',subtopic:'D4.3',
+ diagram:'The feedback diagram shows the methane release feedback loop involving permafrost. Why is this considered one of the most concerning climate tipping points?',
+ imgSrc:'images/80-D4.3-Climate-Feedback-Loops.jpg',
+ imgOptions:['Permafrost methane feedback is concerning only in summer months and reverses in winter','As permafrost (frozen Arctic soil) thaws due to warming, decomposition of frozen organic matter by bacteria releases methane (CH₄) — a greenhouse gas ~80× more potent than CO₂ over 20 years — which causes further warming, thawing more permafrost, in a self-reinforcing positive feedback loop that could become self-sustaining beyond human control','Permafrost methane release is beneficial because methane can be captured and used as fuel','The permafrost feedback only affects local Arctic temperatures with no global climate impact'],
+ imgAnswer:1,
+ imgExplanation:'Permafrost (permanently frozen soil) covers ~25% of the Northern Hemisphere land surface and contains enormous quantities of frozen organic matter (estimated ~1,500 billion tonnes of carbon — twice the current atmospheric carbon). As warming thaws permafrost, anaerobic bacteria decompose the organic matter, releasing methane (CH₄). Methane is a potent greenhouse gas (GWP ~80× CO₂ over 20 years), causing further warming and more permafrost thaw — a positive feedback. This is considered a potential tipping point because once initiated at sufficient scale, it could continue regardless of human emissions reductions, committing Earth to substantial additional warming.'},
 
 
 ]; // end BIO_QUESTIONS
