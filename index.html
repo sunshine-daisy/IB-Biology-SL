@@ -489,17 +489,35 @@ input { font-family: 'DM Sans', sans-serif; }
 .theme-card-wrap .theme-card { flex: 1; border-radius: 8px 0 0 8px; border-right: none; }
 .fc-tab {
   display: flex; align-items: center; justify-content: center;
-  writing-mode: vertical-rl; text-orientation: mixed;
+  writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
   background: #2d5a2d; color: #fff;
   font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
-  padding: 10px 5px; border-radius: 0 8px 8px 0;
-  cursor: pointer; min-width: 22px;
+  padding: 10px 6px; border-radius: 0 8px 8px 0;
+  cursor: pointer; min-width: 28px; white-space: nowrap;
   transition: background 0.15s, transform 0.15s;
-  gap: 5px; user-select: none;
+  gap: 4px; user-select: none;
   border: 1.5px solid #2d5a2d; border-left: none;
   flex-shrink: 0;
 }
-.fc-tab:hover { background: #1e4620; transform: translateX(2px); }
+.fc-tab:hover { background: #1e4620; transform: rotate(180deg) translateX(-2px); }
+/* Theme A — green family */
+.img-tab { background: #4a8a4a; border-color: #4a8a4a; }
+.img-tab:hover { background: #3a7a3a; transform: rotate(180deg) translateX(-2px); }
+/* Theme B — blue family */
+.bar-b-fc { background: #2e7fa8; border-color: #2e7fa8; }
+.bar-b-fc:hover { background: #1e5a7a; }
+.bar-b-img { background: #5aafd8; border-color: #5aafd8; }
+.bar-b-img:hover { background: #3a9ac8; transform: rotate(180deg) translateX(-2px); }
+/* Theme C — indigo family */
+.bar-c-fc { background: #1658EA; border-color: #1658EA; }
+.bar-c-fc:hover { background: #1040c0; }
+.bar-c-img { background: #5a8aee; border-color: #5a8aee; }
+.bar-c-img:hover { background: #3a6add; transform: rotate(180deg) translateX(-2px); }
+/* Theme D — purple family */
+.bar-d-fc { background: #6e4fc4; border-color: #6e4fc4; }
+.bar-d-fc:hover { background: #5a3da8; }
+.bar-d-img { background: #9a7ae0; border-color: #9a7ae0; }
+.bar-d-img:hover { background: #8060cc; transform: rotate(180deg) translateX(-2px); }
 .fc-tab-icon { font-size: 13px; writing-mode: horizontal-tb; }
 .bar-b-fc { background: #2e7fa8; border-color: #2e7fa8; }
 .bar-b-fc:hover { background: #1e5a7a; }
@@ -858,7 +876,10 @@ input { font-family: 'DM Sans', sans-serif; }
           </div>
         </div>
         <div class="fc-tab" onclick="event.stopPropagation();bioFlashcardsOnly('A')" title="Flashcards only — Theme A">
-          <span class="fc-tab-icon">🃏</span>Flash<br>cards
+          <span class="fc-tab-icon">🃏</span>Flashcards
+        </div>
+        <div class="fc-tab img-tab" onclick="event.stopPropagation();bioDiagramsOnly('A')" title="Diagrams only — Theme A">
+          <span class="fc-tab-icon">📷</span>Diagrams
         </div>
         </div>
 
@@ -882,7 +903,10 @@ input { font-family: 'DM Sans', sans-serif; }
           </div>
         </div>
         <div class="fc-tab bar-b-fc" onclick="event.stopPropagation();bioFlashcardsOnly('B')" title="Flashcards only — Theme B">
-          <span class="fc-tab-icon">🃏</span>Flash<br>cards
+          <span class="fc-tab-icon">🃏</span>Flashcards
+        </div>
+        <div class="fc-tab img-tab bar-b-img" onclick="event.stopPropagation();bioDiagramsOnly('B')" title="Diagrams only — Theme B">
+          <span class="fc-tab-icon">📷</span>Diagrams
         </div>
         </div>
 
@@ -906,7 +930,10 @@ input { font-family: 'DM Sans', sans-serif; }
           </div>
         </div>
         <div class="fc-tab bar-c-fc" onclick="event.stopPropagation();bioFlashcardsOnly('C')" title="Flashcards only — Theme C">
-          <span class="fc-tab-icon">🃏</span>Flash<br>cards
+          <span class="fc-tab-icon">🃏</span>Flashcards
+        </div>
+        <div class="fc-tab img-tab bar-c-img" onclick="event.stopPropagation();bioDiagramsOnly('C')" title="Diagrams only — Theme C">
+          <span class="fc-tab-icon">📷</span>Diagrams
         </div>
         </div>
 
@@ -930,7 +957,10 @@ input { font-family: 'DM Sans', sans-serif; }
           </div>
         </div>
         <div class="fc-tab bar-d-fc" onclick="event.stopPropagation();bioFlashcardsOnly('D')" title="Flashcards only — Theme D">
-          <span class="fc-tab-icon">🃏</span>Flash<br>cards
+          <span class="fc-tab-icon">🃏</span>Flashcards
+        </div>
+        <div class="fc-tab img-tab bar-d-img" onclick="event.stopPropagation();bioDiagramsOnly('D')" title="Diagrams only — Theme D">
+          <span class="fc-tab-icon">📷</span>Diagrams
         </div>
         </div>
       </div>
@@ -5107,6 +5137,27 @@ function bioFlashcardsOnly(theme) {
   bioRenderQuestion();
 }
 
+function bioDiagramsOnly(theme) {
+  appState.currentTheme = theme;
+  appState.currentSubtopics = THEME_SUBTOPICS[theme].slice();
+  const imgIds = new Set(
+    BIO_QUESTIONS
+      .filter(q => q.theme === theme && q.type === 'img')
+      .map(q => q.id)
+  );
+  if (imgIds.size === 0) {
+    alert('No diagram questions found for Theme ' + theme);
+    return;
+  }
+  appState.sessionTopicKey = 'img_theme_' + theme;
+  appState.sessionQueue = bioBuildQueue(imgIds, 'img');
+  appState.currentQIndex = 0;
+  appState.sessionScore = 0;
+  appState.sessionTotal = 0;
+  bioShowView('quiz');
+  bioRenderQuestion();
+}
+
 function bioInit() {
   let name = '';
   try { name = localStorage.getItem('ibbio_student_name_v1') || ''; } catch(e) {}
@@ -5297,7 +5348,10 @@ function bioRenderQL(questions) {
   const shown = [];
   const seen = new Set();
   questions.forEach(q => {
-    const label = q.type === 'fc' ? q.term : q.type === 'fitb' ? q.sentence.substring(0, 60) + '...' : q.type === 'match' ? 'Match: ' + q.pairs[0].left + ' + others' : q.question ? q.question.substring(0, 60) + '...' : q.diagram ? q.diagram.substring(0, 60) + '...' : q.id;
+    const typeEmoji = {fc:'🔵', mc:'🔵', fitb:'🟡', img:'📷', match:'🟢'}[q.type] || '⚪';
+    const typeFull = {fc:'Flashcard', mc:'Multiple Choice', fitb:'Fill in the Blank', img:'Diagram', match:'Matching'}[q.type] || q.type;
+    const concept = q.type === 'fc' ? q.term : q.type === 'fitb' ? (q.blank || q.sentence.replace(/_+/g,'___').substring(0,40)) : q.type === 'match' ? q.pairs[0].left + ' & others' : q.type === 'img' ? (q.diagram ? q.diagram.split('.')[0].substring(0,50) : 'Diagram') : q.question ? q.question.split('?')[0].substring(0,50) : q.id;
+    const label = typeEmoji + ' ' + typeFull + ' · ' + concept;
     if (seen.has(label.substring(0,30))) return;
     seen.add(label.substring(0,30));
     shown.push({q, label});
@@ -5544,9 +5598,9 @@ function bioRenderQuestion() {
 
   const card = document.getElementById('question-card');
   const stLabel = q.subtopic && SUBTOPICS[q.subtopic] ? SUBTOPICS[q.subtopic].name : '';
-  const typeName = {fc:'flashcard', mc:'multiple choice', fitb:'fill in the blank', img:'diagram ID', match:'match'}[q.type] || q.type;
+  const typeName = {fc:'flashcard', mc:'multiple choice', fitb:'fill in the blank', img:'', match:'match'}[q.type] || q.type;
 
-  let html = '<span class="q-type-badge">' + typeName + '</span>';
+  let html = typeName ? '<span class="q-type-badge">' + typeName + '</span>' : '';
   if (stLabel) html += '<span class="q-topic-badge">' + q.subtopic + ' · ' + bioEsc(stLabel) + '</span>';
 
   if (q.type === 'fc') {
@@ -5605,11 +5659,11 @@ function bioRenderQuestion() {
     let imgContent;
     if (q.imgSvg) {
       imgContent = '<div style="max-width:100%;overflow:hidden;border-radius:8px;margin-bottom:10px;">' + q.imgSvg + '</div>';
-      if (q.diagram) imgContent += '<div style="font-style:italic;font-size:12px;color:#5a7a5a;margin-bottom:8px;">' + bioEsc(q.diagram) + '</div>';
+      if (q.diagram) imgContent += '<div style="font-style:italic;font-size:16px;font-weight:600;color:#1a2e1a;margin-bottom:8px;">' + bioEsc(q.diagram) + '</div>';
     } else if (q.imgSrc) {
       imgContent = '<img src="' + q.imgSrc + '" alt="Biology diagram" onclick="bioLightboxOpen(this.src)" title="Click to expand">';
       imgContent += '<span class="img-zoom-hint">🔍 Tap image to expand</span>';
-      if (q.diagram) imgContent += '<div style="font-style:italic;font-size:12px;color:#5a7a5a;">' + bioEsc(q.diagram) + '</div>';
+      if (q.diagram) imgContent += '<div style="font-style:italic;font-size:16px;font-weight:600;color:#1a2e1a;">' + bioEsc(q.diagram) + '</div>';
     } else {
       imgContent = bioEsc(q.diagram);
     }
