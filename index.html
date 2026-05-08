@@ -6821,7 +6821,7 @@ function bioSessionComplete() {
   const quote = BIO_QUOTES[Math.floor(Math.random() * BIO_QUOTES.length)];
   document.getElementById('complete-sub').innerHTML =
     '<div style="font-size:28px;font-weight:700;color:' + (pct >= 80 ? '#3b8c3b' : '#1658EA') + ';margin-bottom:12px;">' + pct + '%</div>' +
-    '<div style="font-family:\'Satisfy\',cursive;font-size:26px;font-weight:400;color:#b06a00;line-height:1.8;max-width:340px;margin:16px auto 0;padding:0 8px;">\u201c' + bioEsc(quote) + '\u201d</div>';
+    '<div style="font-family:\'Satisfy\',cursive;font-size:26px;font-weight:400;color:#5b9bd5;line-height:1.8;max-width:340px;margin:16px auto 0;padding:0 8px;">\u201c' + bioEsc(quote) + '\u201d</div>';
   document.getElementById('complete-icon').textContent = pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '📚';
   document.getElementById('complete-title').textContent = 'Session complete!';
   bioUpdateProgressRings();
