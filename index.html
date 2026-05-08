@@ -6229,11 +6229,11 @@ function bioRenderQuestion() {
     let imgContent;
     if (q.imgSvg) {
       imgContent = '<div style="max-width:100%;overflow:hidden;border-radius:8px;margin-bottom:10px;">' + q.imgSvg + '</div>';
-      if (q.diagram) imgContent += '<div style="font-style:italic;font-size:16px;font-weight:600;color:#1a2e1a;margin-bottom:8px;">' + bioEsc(q.diagram) + '</div>';
+      if (q.diagram) imgContent += '<div style="font-style:normal;font-size:16px;font-weight:600;color:#1a2e1a;margin-bottom:8px;">' + bioEsc(q.diagram) + '</div>';
     } else if (q.imgSrc) {
       imgContent = '<img src="' + q.imgSrc + '" alt="Biology diagram" onclick="bioLightboxOpen(this.src)" title="Click to expand">';
       imgContent += '<span class="img-zoom-hint">🔍 Tap image to expand</span>';
-      if (q.diagram) imgContent += '<div style="font-style:italic;font-size:16px;font-weight:600;color:#1a2e1a;">' + bioEsc(q.diagram) + '</div>';
+      if (q.diagram) imgContent += '<div style="font-style:normal;font-size:16px;font-weight:600;color:#1a2e1a;">' + bioEsc(q.diagram) + '</div>';
     } else {
       imgContent = bioEsc(q.diagram);
     }
