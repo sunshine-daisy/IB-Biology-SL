@@ -535,15 +535,15 @@ input { font-family: 'DM Sans', sans-serif; }
 .bar-d-fc:hover { background: #5a3da8; }
 .bar-d-img { background: #9a7ae0; border-color: #9a7ae0; }
 .bar-d-img:hover { background: #8060cc; transform: rotate(180deg) translateX(-2px); }
-/* Notes tab — brown/amber family for all themes */
-.notes-tab { background: #8a6a10; }
-.notes-tab:hover { background: #6a4e0a; transform: rotate(180deg) translateX(-2px); }
-.bar-b-notes { background: #2e7fa8; }
-.bar-b-notes:hover { background: #1e5a7a; transform: rotate(180deg) translateX(-2px); }
-.bar-c-notes { background: #1658EA; }
-.bar-c-notes:hover { background: #1040c0; transform: rotate(180deg) translateX(-2px); }
-.bar-d-notes { background: #6e4fc4; }
-.bar-d-notes:hover { background: #5a3da8; transform: rotate(180deg) translateX(-2px); }  
+/* ── Notes PDF tabs ───────────────────────────────────────────────────────── */
+.notes-tab { background: #5a8a3b; }
+.notes-tab:hover { background: #3e6e22; transform: rotate(180deg) translateX(-2px); }
+.bar-b-notes { background: #1a6e8a; }
+.bar-b-notes:hover { background: #0e4f66; transform: rotate(180deg) translateX(-2px); }
+.bar-c-notes { background: #3344cc; }
+.bar-c-notes:hover { background: #2233aa; transform: rotate(180deg) translateX(-2px); }
+.bar-d-notes { background: #8a5fd8; }
+.bar-d-notes:hover { background: #6e4ab8; transform: rotate(180deg) translateX(-2px); }
 .fc-tab-icon { font-size: 14px; writing-mode: horizontal-tb; }
 .bar-b-fc { background: #2e7fa8; border-color: #2e7fa8; }
 .bar-b-fc:hover { background: #1e5a7a; }
@@ -912,6 +912,9 @@ input { font-family: 'DM Sans', sans-serif; }
         <div class="fc-tab img-tab" onclick="event.stopPropagation();bioDiagramsOnly('A')" title="Diagrams only — Theme A">
           <span class="fc-tab-icon">📷</span>Diagrams
         </div>
+        <div class="fc-tab notes-tab" onclick="event.stopPropagation();bioNotesOnly('A')" title="Notes PDF — Theme A">
+          <span class="fc-tab-icon">📄</span>Notes
+        </div>
         </div>
 
         <div class="theme-card-wrap">
@@ -938,6 +941,9 @@ input { font-family: 'DM Sans', sans-serif; }
         </div>
         <div class="fc-tab img-tab bar-b-img" onclick="event.stopPropagation();bioDiagramsOnly('B')" title="Diagrams only — Theme B">
           <span class="fc-tab-icon">📷</span>Diagrams
+        </div>
+        <div class="fc-tab bar-b-notes" onclick="event.stopPropagation();bioNotesOnly('B')" title="Notes PDF — Theme B">
+          <span class="fc-tab-icon">📄</span>Notes
         </div>
         </div>
 
@@ -966,6 +972,9 @@ input { font-family: 'DM Sans', sans-serif; }
         <div class="fc-tab img-tab bar-c-img" onclick="event.stopPropagation();bioDiagramsOnly('C')" title="Diagrams only — Theme C">
           <span class="fc-tab-icon">📷</span>Diagrams
         </div>
+        <div class="fc-tab bar-c-notes" onclick="event.stopPropagation();bioNotesOnly('C')" title="Notes PDF — Theme C">
+          <span class="fc-tab-icon">📄</span>Notes
+        </div>
         </div>
 
         <div class="theme-card-wrap">
@@ -992,6 +1001,9 @@ input { font-family: 'DM Sans', sans-serif; }
         </div>
         <div class="fc-tab img-tab bar-d-img" onclick="event.stopPropagation();bioDiagramsOnly('D')" title="Diagrams only — Theme D">
           <span class="fc-tab-icon">📷</span>Diagrams
+        </div>
+        <div class="fc-tab bar-d-notes" onclick="event.stopPropagation();bioNotesOnly('D')" title="Notes PDF — Theme D">
+          <span class="fc-tab-icon">📄</span>Notes
         </div>
         </div>
       </div>
@@ -5092,7 +5104,7 @@ const BIO_QUESTIONS = [
 
 ,
 
-{id:'C141',type:'img',theme:'C',subtopic:'C1.2',
+{id:'C141b',type:'img',theme:'C',subtopic:'C1.2',
  diagram:'The diagram shows the electron transport chain in the inner mitochondrial membrane, with H\u207a pumping into the intermembrane space and ATP synthesis via chemiosmosis.',
  imgSrc:'images/38-C1.2-ETC-Chemiosmosis.jpg',
  imgOptions:[
@@ -5753,6 +5765,16 @@ let appState = {
 // INIT
 // ═══════════════════════════════════════════════════════════════════════════
 
+function bioNotesOnly(theme) {
+  const pdfMap = {
+    A: 'notes/Bio_SL_ThemeA_Unity_Diversity.pdf',
+    B: 'notes/Bio_SL_ThemeB_Form_Function.pdf',
+    C: 'notes/Bio_SL_ThemeC_Interaction_Interdependence.pdf',
+    D: 'notes/Bio_SL_ThemeD_Continuity_Change.pdf'
+  };
+  const url = pdfMap[theme];
+  if (url) window.open(url, '_blank');
+}
 function bioFlashcardsOnly(theme) {
   // Build a session with ONLY flashcard (fc) questions from the whole theme
   appState.currentTheme = theme;
