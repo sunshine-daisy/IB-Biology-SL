@@ -1157,6 +1157,7 @@ async function cloudSaveSession(name, topicKey, correct, total) {
         name,
         questionId: topicKey,
         correct,
+        total,
         timestamp: new Date().toISOString()
       })
     });
@@ -1210,12 +1211,45 @@ function bioSaveName2(n) {
   try { localStorage.setItem(NAME_KEY, n); } catch(e) {}
 }
 function bioRecordSession(topicKey, correct, total) {
+  if (total <= 0) return; // nothing to record
   const h = bioLoadHistory();
+
+  // Determine which subtopic keys to write under.
+  // If the session covered a whole theme (key = 'theme_X', 'fc_theme_X',
+  // 'img_theme_X') distribute the score across every subtopic in that theme
+  // so the History subtopic rows and theme headers always see real data.
+  const themeMatch = topicKey.match(/^(?:fc_theme_|img_theme_|theme_)?([ABCD])$/);
+  let keysToWrite = [topicKey]; // default: save under the given key
+
+  if (themeMatch) {
+    const theme = themeMatch[1];
+    const sts = THEME_SUBTOPICS[theme];
+    if (sts && sts.length > 0) {
+      // Distribute proportionally across subtopics
+      const perSt = Math.round(total / sts.length);
+      const perStCorrect = total > 0 ? correct / total : 0;
+      sts.forEach((st, i) => {
+        const stTotal   = (i === sts.length - 1)
+          ? total - perSt * (sts.length - 1)   // remainder goes to last
+          : perSt;
+        const stCorrect = Math.round(perStCorrect * stTotal);
+        if (!h[st]) h[st] = [];
+        h[st].push({ date: new Date().toISOString(), correct: stCorrect, total: stTotal });
+        if (h[st].length > 20) h[st] = h[st].slice(-20);
+      });
+      bioSaveHistory(h);
+      // Cloud: save once under the original key
+      const name = bioLoadName();
+      if (name) cloudSaveSession(name, topicKey, correct, total);
+      return;
+    }
+  }
+
+  // Single-subtopic or 'mixed' session — save normally
   if (!h[topicKey]) h[topicKey] = [];
   h[topicKey].push({ date: new Date().toISOString(), correct, total });
   if (h[topicKey].length > 20) h[topicKey] = h[topicKey].slice(-20);
   bioSaveHistory(h);
-  // Also save to cloud
   const name = bioLoadName();
   if (name) cloudSaveSession(name, topicKey, correct, total);
 }
@@ -5859,7 +5893,61 @@ function bioDiagramsOnly(theme) {
   bioRenderQuestion();
 }
 
+
+// ─── ONE-TIME SCORE MIGRATION ─────────────────────────────────────────────
+// Moves any existing theme_X / fc_theme_X / img_theme_X records in
+// localStorage into individual subtopic keys so History and rings display them.
+// Runs once per browser; safe to call multiple times.
+function bioMigrateThemeScores() {
+  const MIGRATION_KEY = 'ibbio_migration_v1_done';
+  try { if (localStorage.getItem(MIGRATION_KEY)) return; } catch(e) { return; }
+
+  const h = bioLoadHistory();
+  let changed = false;
+  const prefixes = ['theme_', 'fc_theme_', 'img_theme_'];
+
+  ['A','B','C','D'].forEach(theme => {
+    const sts = THEME_SUBTOPICS[theme];
+    if (!sts || !sts.length) return;
+
+    prefixes.forEach(prefix => {
+      const key = prefix + theme;
+      const sessions = h[key];
+      if (!sessions || !sessions.length) return;
+
+      sessions.forEach(s => {
+        const total   = typeof s.total   === 'number' ? s.total   : 1;
+        const correct = typeof s.correct === 'number' ? s.correct : (s.correct ? 1 : 0);
+        if (total <= 0) return;
+
+        const perSt        = Math.round(total / sts.length);
+        const correctRatio = correct / total;
+
+        sts.forEach((st, i) => {
+          const stTotal   = (i === sts.length - 1)
+            ? total - perSt * (sts.length - 1)
+            : perSt;
+          const stCorrect = Math.round(correctRatio * stTotal);
+          if (!h[st]) h[st] = [];
+          h[st].push({ date: s.date || new Date().toISOString(), correct: stCorrect, total: stTotal });
+          if (h[st].length > 20) h[st] = h[st].slice(-20);
+        });
+        changed = true;
+      });
+
+      // Remove the old theme-level key
+      delete h[key];
+    });
+  });
+
+  if (changed) {
+    bioSaveHistory(h);
+  }
+  try { localStorage.setItem(MIGRATION_KEY, '1'); } catch(e) {}
+}
+
 function bioInit() {
+  bioMigrateThemeScores();
   let name = '';
   try { name = localStorage.getItem('ibbio_student_name_v1') || ''; } catch(e) {}
   const overlay = document.getElementById('welcome-overlay');
@@ -5883,9 +5971,19 @@ function bioStartWelcome() {
   cloudGetScores(name).then(scores => {
     if (Object.keys(scores).length > 0) {
       const h = bioLoadHistory();
-      Object.entries(scores).forEach(([key, val]) => {
-        if (!h[key]) h[key] = [];
-        h[key].push({ date: val.timestamp, correct: val.correct ? 1 : 0, total: 1 });
+      // Cloud scores are ONLY used to seed an empty localStorage.
+      // If localStorage already has data we trust it — don't merge, to
+      // avoid duplicating or corrupting existing accurate records.
+      const hasLocalData = Object.keys(h).some(k => (h[k] || []).length > 0);
+      if (!hasLocalData) {
+        Object.entries(scores).forEach(([key, val]) => {
+          const rec = {
+            date:    val.timestamp || new Date().toISOString(),
+            correct: typeof val.correct === 'number' ? val.correct : (val.correct ? 1 : 0),
+            total:   typeof val.total   === 'number' ? val.total   : 1
+          };
+          if (!h[key]) h[key] = [];
+          h[key].push(rec);
       });
       bioSaveHistory(h);
     }
@@ -6907,21 +7005,20 @@ function bioUpdateProgressRings() {
   ['A','B','C','D'].forEach(theme => {
     const sts = THEME_SUBTOPICS[theme];
     let correct = 0, total = 0;
-    // Count individual subtopic sessions
+    // Read subtopic keys only — Fix 1 ensures all sessions land here
     sts.forEach(st => {
-      (h[st] || []).forEach(s => { correct += s.correct; total += s.total; });
-    });
-    // Also count whole-theme sessions (theme_X, fc_theme_X, img_theme_X)
-    ['theme_','fc_theme_','img_theme_'].forEach(prefix => {
-      (h[prefix + theme] || []).forEach(s => { correct += s.correct; total += s.total; });
+      (h[st] || []).forEach(s => {
+        correct += (typeof s.correct === 'number' ? s.correct : 0);
+        total   += (typeof s.total   === 'number' ? s.total   : 0);
+      });
     });
     const pct = total > 0 ? Math.round(correct / total * 100) : 0;
-    const ringCirc = 75.4;
+    const ringCirc = 75.4; // 2π × 12
     const offset = ringCirc - (ringCirc * pct / 100);
-    const ring = document.getElementById('ring-' + theme);
-    const pctEl = document.getElementById('pct-' + theme);
-    if (ring) ring.style.strokeDashoffset = offset;
-    if (pctEl) pctEl.textContent = total > 0 ? pct + '%' : '0%';
+    const ring  = document.getElementById('ring-'  + theme);
+    const pctEl = document.getElementById('pct-'   + theme);
+    if (ring)  ring.style.strokeDashoffset = offset;
+    if (pctEl) pctEl.textContent = total > 0 ? pct + '%' : '—';
   });
 }
 
@@ -6942,18 +7039,14 @@ function bioRenderHistory() {
 
   // ── Overall score summary — only count actual subtopic sessions ───────────
   const allSubtopicKeys = new Set(Object.keys(SUBTOPICS));
-  // Build a set of all valid keys: subtopics + theme_X + fc_theme_X + img_theme_X
-  const allValidKeys = new Set([
-    ...allSubtopicKeys,
-    'theme_A','theme_B','theme_C','theme_D',
-    'fc_theme_A','fc_theme_B','fc_theme_C','fc_theme_D',
-    'img_theme_A','img_theme_B','img_theme_C','img_theme_D',
-    'mixed'
-  ]);
+  // Overall % — read all subtopic keys; Fix 1 ensures all sessions land here
   let allCorrect = 0, allTotal = 0;
   Object.entries(h).forEach(([key, sessions]) => {
-    if (!allValidKeys.has(key)) return;
-    sessions.forEach(s => { allCorrect += s.correct; allTotal += s.total; });
+    if (!allSubtopicKeys.has(key)) return; // only individual subtopic keys
+    sessions.forEach(s => {
+      allCorrect += (typeof s.correct === 'number' ? s.correct : 0);
+      allTotal   += (typeof s.total   === 'number' ? s.total   : 0);
+    });
   });
   const overallPct = allTotal > 0 ? Math.round(allCorrect / allTotal * 100) : null;
   const overallColor = overallPct === null ? '#9ab89a' : overallPct >= 80 ? '#3b8c3b' : overallPct >= 60 ? '#1658EA' : '#1658EA';
@@ -6973,10 +7066,11 @@ function bioRenderHistory() {
   themeData.forEach(td => {
     const sts = THEME_SUBTOPICS[td.theme];
     let tc = 0, tt = 0;
-    sts.forEach(st => { (h[st] || []).forEach(s => { tc += s.correct; tt += s.total; }); });
-    // Also include whole-theme sessions saved under 'theme_X', 'fc_theme_X', 'img_theme_X'
-    ['theme_','fc_theme_','img_theme_'].forEach(prefix => {
-      (h[prefix + td.theme] || []).forEach(s => { tc += s.correct; tt += s.total; });
+    sts.forEach(st => {
+      (h[st] || []).forEach(s => {
+        tc += (typeof s.correct === 'number' ? s.correct : 0);
+        tt += (typeof s.total   === 'number' ? s.total   : 0);
+      });
     });
     const pct = tt > 0 ? Math.round(tc / tt * 100) : null;
     const barColor = pct === null ? '#e0e8dc' : pct >= 80 ? '#3b8c3b' : pct >= 60 ? '#1658EA' : '#1658EA';
@@ -6992,9 +7086,15 @@ function bioRenderHistory() {
 
   themeData.forEach(td => {
     const sts = THEME_SUBTOPICS[td.theme];
-    // Calculate theme-level score
+    // Calculate theme-level score from subtopic keys
+    // (Fix 1 ensures whole-theme sessions are distributed here)
     let thC = 0, thT = 0;
-    sts.forEach(st => { (h[st] || []).forEach(s => { thC += s.correct; thT += s.total; }); });
+    sts.forEach(st => {
+      (h[st] || []).forEach(s => {
+        thC += (typeof s.correct === 'number' ? s.correct : 0);
+        thT += (typeof s.total   === 'number' ? s.total   : 0);
+      });
+    });
     const thPct = thT > 0 ? Math.round(thC / thT * 100) : null;
     const thColor = thPct === null ? '#9ab89a' : thPct >= 80 ? '#3b8c3b' : thPct >= 60 ? '#1658EA' : '#1658EA';
 
