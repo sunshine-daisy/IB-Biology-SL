@@ -6906,16 +6906,22 @@ function bioUpdateProgressRings() {
   const h = bioLoadHistory();
   ['A','B','C','D'].forEach(theme => {
     const sts = THEME_SUBTOPICS[theme];
-    let totalSessions = 0;
-    sts.forEach(st => { if (h[st]) totalSessions += h[st].length; });
-    const target = sts.length * 3; // 3 sessions per subtopic = "full"
-    const pct = Math.min(100, Math.round(totalSessions / target * 100));
-    const ringCirc = 75.4; // 2π × 12
+    let correct = 0, total = 0;
+    // Count individual subtopic sessions
+    sts.forEach(st => {
+      (h[st] || []).forEach(s => { correct += s.correct; total += s.total; });
+    });
+    // Also count whole-theme sessions (theme_X, fc_theme_X, img_theme_X)
+    ['theme_','fc_theme_','img_theme_'].forEach(prefix => {
+      (h[prefix + theme] || []).forEach(s => { correct += s.correct; total += s.total; });
+    });
+    const pct = total > 0 ? Math.round(correct / total * 100) : 0;
+    const ringCirc = 75.4;
     const offset = ringCirc - (ringCirc * pct / 100);
     const ring = document.getElementById('ring-' + theme);
     const pctEl = document.getElementById('pct-' + theme);
     if (ring) ring.style.strokeDashoffset = offset;
-    if (pctEl) pctEl.textContent = pct + '%';
+    if (pctEl) pctEl.textContent = total > 0 ? pct + '%' : '0%';
   });
 }
 
@@ -6936,9 +6942,17 @@ function bioRenderHistory() {
 
   // ── Overall score summary — only count actual subtopic sessions ───────────
   const allSubtopicKeys = new Set(Object.keys(SUBTOPICS));
+  // Build a set of all valid keys: subtopics + theme_X + fc_theme_X + img_theme_X
+  const allValidKeys = new Set([
+    ...allSubtopicKeys,
+    'theme_A','theme_B','theme_C','theme_D',
+    'fc_theme_A','fc_theme_B','fc_theme_C','fc_theme_D',
+    'img_theme_A','img_theme_B','img_theme_C','img_theme_D',
+    'mixed'
+  ]);
   let allCorrect = 0, allTotal = 0;
   Object.entries(h).forEach(([key, sessions]) => {
-    if (!allSubtopicKeys.has(key)) return; // skip mixed, theme_A, fc_theme_A etc
+    if (!allValidKeys.has(key)) return;
     sessions.forEach(s => { allCorrect += s.correct; allTotal += s.total; });
   });
   const overallPct = allTotal > 0 ? Math.round(allCorrect / allTotal * 100) : null;
@@ -6960,6 +6974,10 @@ function bioRenderHistory() {
     const sts = THEME_SUBTOPICS[td.theme];
     let tc = 0, tt = 0;
     sts.forEach(st => { (h[st] || []).forEach(s => { tc += s.correct; tt += s.total; }); });
+    // Also include whole-theme sessions saved under 'theme_X', 'fc_theme_X', 'img_theme_X'
+    ['theme_','fc_theme_','img_theme_'].forEach(prefix => {
+      (h[prefix + td.theme] || []).forEach(s => { tc += s.correct; tt += s.total; });
+    });
     const pct = tt > 0 ? Math.round(tc / tt * 100) : null;
     const barColor = pct === null ? '#e0e8dc' : pct >= 80 ? '#3b8c3b' : pct >= 60 ? '#1658EA' : '#1658EA';
     html += '<div style="flex:1;min-width:100px;background:#f7faf7;border-radius:10px;padding:10px 12px;border:1px solid #e0e8dc;">';
