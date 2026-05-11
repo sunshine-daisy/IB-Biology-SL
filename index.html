@@ -458,6 +458,28 @@ input { font-family: 'DM Sans', sans-serif; }
 }
 .fitb-feedback { font-size: 15px; margin-top: 10px; color: #2d6e2d; }
 .fitb-feedback.wrong { color: #F92407; }
+/* ── Multi-blank FITB labeled inputs ─────────────────────────────────────── */
+.fitb-multi-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+}
+.fitb-multi-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px; font-weight: 600; color: #2d5a2d;
+  min-width: 28px; text-align: center;
+  background: #eaf3ea; border: 1.5px solid #c5ddc5;
+  border-radius: 6px; padding: 4px 8px;
+  flex-shrink: 0;
+}
+.fitb-multi-input {
+  flex: 1; padding: 10px 14px;
+  border: 1.5px solid #e0e8dc; border-radius: 10px;
+  font-size: 14px; color: #1a2e1a; outline: none;
+  font-family: 'DM Sans', sans-serif;
+}
+.fitb-multi-input:focus { border-color: #2d5a2d; }
+.fitb-multi-input.correct { border-color: #3b8c3b; background: #eaf3ea; }
+.fitb-multi-input.wrong { border-color: #dda0a0; background: #fdf0f0; }
 
 /* ── Image / Diagram ──────────────────────────────────────────────────────── */
 .img-diagram-box {
@@ -535,6 +557,15 @@ input { font-family: 'DM Sans', sans-serif; }
 .bar-d-fc:hover { background: #5a3da8; }
 .bar-d-img { background: #9a7ae0; border-color: #9a7ae0; }
 .bar-d-img:hover { background: #8060cc; transform: rotate(180deg) translateX(-2px); }
+/* ── Notes PDF tabs ───────────────────────────────────────────────────────── */
+.notes-tab { background: #7ab87a; }
+.notes-tab:hover { background: #5a9a5a; transform: rotate(180deg) translateX(-2px); }
+.bar-b-notes { background: #88ccee; }
+.bar-b-notes:hover { background: #5ab4e0; transform: rotate(180deg) translateX(-2px); }
+.bar-c-notes { background: #8aaaff; }
+.bar-c-notes:hover { background: #6a8af0; transform: rotate(180deg) translateX(-2px); }
+.bar-d-notes { background: #bba0f0; }
+.bar-d-notes:hover { background: #a080dc; transform: rotate(180deg) translateX(-2px); }
 /* ── Notes PDF tabs ───────────────────────────────────────────────────────── */
 .notes-tab { background: #7ab87a; }
 .notes-tab:hover { background: #5a9a5a; transform: rotate(180deg) translateX(-2px); }
@@ -2014,7 +2045,7 @@ const BIO_QUESTIONS = [
 
 {id:'C025',type:'fitb',theme:'C',subtopic:'C2.2',
  sentence:'Synaptic transmission begins when an action potential reaches the presynaptic terminal, causing voltage-gated ___ channels to open. The influx of these ions triggers synaptic vesicles to fuse with the membrane and release neurotransmitter by ___.',
- blank:'calcium (Ca²⁺)/exocytosis'},
+ blank:'calcium/exocytosis'},
 
 {id:'C026',type:'mc',theme:'C',subtopic:'C2.2',
  question:'What is the significance of the refractory period following an action potential?',
@@ -2364,7 +2395,7 @@ const BIO_QUESTIONS = [
 
 {id:'D033',type:'fitb',theme:'D',subtopic:'D3.2',
  sentence:'Polygenic inheritance produces ___ variation because many genes each contribute a small additive effect to the phenotype. Examples include human height and skin colour, which form a ___ distribution.',
- blank:'continuous/bell-curve (normal)'},
+ blank:'continuous/normal/bell-curve'},
 
 {id:'D034',type:'match',theme:'D',subtopic:'D3.2',
  pairs:[
@@ -2579,7 +2610,7 @@ const BIO_QUESTIONS = [
 
 {id:'A070',type:'fitb',theme:'A',subtopic:'A2.2',
  sentence:'The formula for calculating magnification is: magnification = image size ___ actual size.',
- blank:'divided by (/)'},
+ blank:'divided by/÷'},
 
 {id:'A071',type:'mc',theme:'A',subtopic:'A2.2',
  question:'A cell viewed under a microscope appears 45 mm wide. The actual cell is 15 µm wide. What is the magnification?',
@@ -2615,7 +2646,7 @@ const BIO_QUESTIONS = [
 
 {id:'A076',type:'fitb',theme:'A',subtopic:'A2.2',
  sentence:'Viruses are NOT considered living because they have no ___, no organelles, and cannot reproduce independently — they require a host cell.',
- blank:'nucleus (or cell membrane / cytoplasm)'},
+ blank:'nucleus/cell membrane/cytoplasm'},
 
 // A3.1 Diversity of Organisms — additional questions
 {id:'A077',type:'mc',theme:'A',subtopic:'A3.1',
@@ -2879,7 +2910,7 @@ const BIO_QUESTIONS = [
 
 {id:'B058',type:'fitb',theme:'B',subtopic:'B1.2',
  sentence:'The R group (side chain) is the variable part of an amino acid and determines its chemical properties. Amino acids with non-polar R groups tend to be found on the ___ of globular proteins, away from the aqueous environment.',
- blank:'interior (inside)'},
+ blank:'interior/inside'},
 
 {id:'B059',type:'mc',theme:'B',subtopic:'B1.2',
  question:'Haemoglobin has quaternary structure. What does this mean?',
@@ -2916,7 +2947,7 @@ const BIO_QUESTIONS = [
 
 {id:'B064',type:'fitb',theme:'B',subtopic:'B2.1',
  sentence:'In the fluid mosaic model, proteins are described as a "mosaic" because they are ___ throughout the phospholipid bilayer like tiles in a mosaic.',
- blank:'embedded (scattered / distributed)'},
+ blank:'embedded/scattered/distributed'},
 
 {id:'B065',type:'mc',theme:'B',subtopic:'B2.1',
  question:'Why can O₂ diffuse directly through the phospholipid bilayer without needing a transport protein?',
@@ -3032,7 +3063,7 @@ const BIO_QUESTIONS = [
 
 {id:'B083',type:'fitb',theme:'B',subtopic:'B3.2',
  sentence:'In xylem, water is drawn upward by cohesion-tension: evaporation from leaves creates ___ in the xylem, which pulls the water column upward.',
- blank:'tension (negative pressure)'},
+ blank:'tension/negative pressure'},
 
 {id:'B084',type:'mc',theme:'B',subtopic:'B3.2',
  question:'Phloem transport (translocation) moves sucrose from source to sink. Which of these correctly identifies a source and a sink?',
@@ -3331,7 +3362,7 @@ const BIO_QUESTIONS = [
 
 {id:'C064',type:'fitb',theme:'C',subtopic:'C1.3',
  sentence:'The enzyme that fixes CO₂ in the Calvin cycle, combining it with RuBP to form two molecules of GP (3-phosphoglycerate), is called ___.',
- blank:'RuBisCO (ribulose-1,5-bisphosphate carboxylase/oxygenase)'},
+ blank:'RuBisCO/ribulose bisphosphate carboxylase oxygenase'},
 
 {id:'C065',type:'mc',theme:'C',subtopic:'C1.3',
  question:'Which of the following correctly describes why plants appear green?',
@@ -3524,7 +3555,7 @@ const BIO_QUESTIONS = [
 
 {id:'C096',type:'fitb',theme:'C',subtopic:'C4.2',
  sentence:'The Keeling Curve, measured at Mauna Loa Observatory since 1958, shows two superimposed patterns: annual oscillations from seasonal photosynthesis AND a long-term ___ trend due to fossil fuel combustion.',
- blank:'rising (increasing)'},
+ blank:'rising/increasing'},
 
 {id:'C097',type:'mc',theme:'C',subtopic:'C4.2',
  question:'Denitrification is an important process in the nitrogen cycle. What happens during denitrification, and which type of organisms carry it out?',
@@ -3628,7 +3659,7 @@ const BIO_QUESTIONS = [
 
 {id:'C114',type:'fitb',theme:'C',subtopic:'C2.2',
  sentence:'At a chemical synapse, neurotransmitter molecules are released by ___ of synaptic vesicles with the presynaptic membrane, triggered by the entry of Ca²⁺ ions.',
- blank:'exocytosis (fusion)'},
+ blank:'exocytosis/fusion'},
 
 {id:'C115',type:'mc',theme:'C',subtopic:'C3.1',
  question:'The somatic division and autonomic division are both parts of the peripheral nervous system (PNS). What is the key difference between them?',
@@ -3733,7 +3764,7 @@ const BIO_QUESTIONS = [
 
 {id:'D066',type:'fitb',theme:'D',subtopic:'D1.3',
  sentence:'In CRISPR-Cas9, the guide RNA directs the Cas9 ___ enzyme to the target DNA sequence where it makes a double-strand break.',
- blank:'nuclease (endonuclease)'},
+ blank:'nuclease/endonuclease'},
 
 {id:'D067',type:'mc',theme:'D',subtopic:'D1.3',
  question:'In CRISPR-Cas9, repair via NHEJ (Non-Homologous End Joining) typically results in gene knockout. Why?',
@@ -3762,7 +3793,7 @@ const BIO_QUESTIONS = [
 
 {id:'D071',type:'fitb',theme:'D',subtopic:'D2.1',
  sentence:'Non-disjunction during meiosis I occurs when homologous chromosomes fail to ___ at anaphase I, resulting in gametes with too many or too few chromosomes.',
- blank:'separate (segregate)'},
+ blank:'separate/segregate'},
 
 {id:'D072',type:'mc',theme:'D',subtopic:'D2.1',
  question:'How many genetically unique gametes can theoretically be produced by a human cell (23 pairs of homologous chromosomes) through independent assortment alone?',
@@ -3799,7 +3830,7 @@ const BIO_QUESTIONS = [
 
 {id:'D077',type:'fitb',theme:'D',subtopic:'D2.3',
  sentence:'Pure water has a water potential of ___ kPa — the maximum possible. Adding solutes makes water potential more negative.',
- blank:'0 (zero)'},
+ blank:'0/zero'},
 
 {id:'D078',type:'mc',theme:'D',subtopic:'D2.3',
  question:'Oral rehydration therapy (ORT) for diarrhoea contains both glucose and salt. Why is glucose included, not just salt?',
@@ -3963,7 +3994,7 @@ const BIO_QUESTIONS = [
 
 {id:'D105',type:'fitb',theme:'D',subtopic:'D4.3',
  sentence:'Ocean acidification occurs because CO₂ dissolving in seawater forms carbonic acid (H₂CO₃), which lowers pH. This impairs the ability of calcifying organisms to form their ___ skeletons and shells.',
- blank:'calcium carbonate (CaCO₃)'},
+ blank:'calcium carbonate/CaCO3'},
 
 {id:'D106',type:'mc',theme:'D',subtopic:'D4.3',
  question:'Species living on mountains are shifting their ranges to higher elevations as climate warms. Why are mountain-top species at greatest risk from this upslope range shift?',
@@ -4011,7 +4042,7 @@ const BIO_QUESTIONS = [
 
 {id:'D113',type:'fitb',theme:'D',subtopic:'D3.3',
  sentence:'Negative feedback in homeostasis works by: stimulus → receptor detects deviation → ___ sends signal → effector responds → condition returns to set point → response switched off.',
- blank:'control centre (hypothalamus / regulatory centre)'},
+ blank:'control centre/hypothalamus/regulatory centre'},
 
 {id:'D114',type:'mc',theme:'D',subtopic:'D3.2',
  question:'Two parents with blood type A (Iᴬ i) and blood type B (Iᴮ i) have children. Which blood types are possible in their offspring?',
@@ -5765,6 +5796,16 @@ let appState = {
 // INIT
 // ═══════════════════════════════════════════════════════════════════════════
 
+function bioNotesOnly(theme) {
+  const pdfMap = {
+    A: 'notes/Bio_SL_ThemeA_Unity_Diversity.pdf',
+    B: 'notes/Bio_SL_ThemeB_Form_Function.pdf',
+    C: 'notes/Bio_SL_ThemeC_Interaction_Interdependence.pdf',
+    D: 'notes/Bio_SL_ThemeD_Continuity_Change.pdf'
+  };
+  const url = pdfMap[theme];
+  if (url) window.open(url, '_blank');
+}
 function bioNotesOnly(theme) {
   const pdfMap = {
     A: 'notes/Bio_SL_ThemeA_Unity_Diversity.pdf',
