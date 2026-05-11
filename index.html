@@ -150,6 +150,7 @@ input { font-family: 'DM Sans', sans-serif; }
   border-radius: 14px; padding: 15px;
   cursor: pointer; position: relative; overflow: hidden;
   transition: border-color 0.15s, transform 0.1s;
+  display: flex; flex-direction: column;
 }
 .theme-card-wrap .theme-card { border-radius: 12px; }
 .theme-card:hover { border-color: #aacbaa; transform: translateY(-1px); }
@@ -165,14 +166,15 @@ input { font-family: 'DM Sans', sans-serif; }
 }
 .theme-card-sub { font-size: 13px; color: #2d5a2d; font-weight: 500; margin-bottom: 4px; }
 .theme-card-desc { font-size: 12px; color: #7a9a7a; line-height: 1.4; margin-bottom: 10px; }
-.theme-card-footer { display: flex; align-items: center; justify-content: space-between; }
+.theme-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 10px; }
 .theme-q-count { font-family: 'DM Mono', monospace; font-size: 10px; color: #aacbaa; }
-.progress-ring-wrap { position: relative; width: 32px; height: 32px; }
+.progress-ring-wrap { position: relative; width: 72px; height: 72px; flex-shrink: 0; }
 .progress-ring-wrap svg { transform: rotate(-90deg); }
 .ring-pct {
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%,-50%);
-  font-family: 'DM Mono', monospace; font-size: 8px; color: #2d5a2d;
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 600; color: #2d5a2d;
+  white-space: nowrap;
 }
 
 /* ── Mix Card ─────────────────────────────────────────────────────────────── */
@@ -928,12 +930,12 @@ input { font-family: 'DM Sans', sans-serif; }
           <div class="theme-card-footer">
             <span class="theme-q-count" id="count-A">6 subtopics</span>
             <div class="progress-ring-wrap">
-              <svg width="32" height="32" viewBox="0 0 32 32">
-                <circle cx="16" cy="16" r="12" fill="none" stroke="#e0e8dc" stroke-width="3"/>
-                <circle id="ring-A" cx="16" cy="16" r="12" fill="none" stroke="#3b8c3b" stroke-width="3"
-                  stroke-dasharray="75.4" stroke-dashoffset="75.4" stroke-linecap="round"/>
+              <svg width="72" height="72" viewBox="0 0 72 72">
+                <circle cx="36" cy="36" r="28" fill="none" stroke="#e0e8dc" stroke-width="4"/>
+                <circle id="ring-A" cx="36" cy="36" r="28" fill="none" stroke="#3b8c3b" stroke-width="4"
+                  stroke-dasharray="175.9" stroke-dashoffset="175.9" stroke-linecap="round"/>
               </svg>
-              <div class="ring-pct" id="pct-A">0%</div>
+              <div class="ring-pct" id="pct-A">—</div>
             </div>
           </div>
         </div>
@@ -958,12 +960,12 @@ input { font-family: 'DM Sans', sans-serif; }
           <div class="theme-card-footer">
             <span class="theme-q-count" id="count-B">9 subtopics</span>
             <div class="progress-ring-wrap">
-              <svg width="32" height="32" viewBox="0 0 32 32">
-                <circle cx="16" cy="16" r="12" fill="none" stroke="#e0e8dc" stroke-width="3"/>
-                <circle id="ring-B" cx="16" cy="16" r="12" fill="none" stroke="#2e7fa8" stroke-width="3"
-                  stroke-dasharray="75.4" stroke-dashoffset="75.4" stroke-linecap="round"/>
+              <svg width="72" height="72" viewBox="0 0 72 72">
+                <circle cx="36" cy="36" r="28" fill="none" stroke="#e0e8dc" stroke-width="4"/>
+                <circle id="ring-B" cx="36" cy="36" r="28" fill="none" stroke="#2e7fa8" stroke-width="4"
+                  stroke-dasharray="175.9" stroke-dashoffset="175.9" stroke-linecap="round"/>
               </svg>
-              <div class="ring-pct" id="pct-B" style="color:#2e7fa8">0%</div>
+              <div class="ring-pct" id="pct-B" style="color:#2e7fa8">—</div>
             </div>
           </div>
         </div>
@@ -988,12 +990,12 @@ input { font-family: 'DM Sans', sans-serif; }
           <div class="theme-card-footer">
             <span class="theme-q-count" id="count-C">8 subtopics</span>
             <div class="progress-ring-wrap">
-              <svg width="32" height="32" viewBox="0 0 32 32">
-                <circle cx="16" cy="16" r="12" fill="none" stroke="#e0e8dc" stroke-width="3"/>
-                <circle id="ring-C" cx="16" cy="16" r="12" fill="none" stroke="#1658EA" stroke-width="3"
-                  stroke-dasharray="75.4" stroke-dashoffset="75.4" stroke-linecap="round"/>
+              <svg width="72" height="72" viewBox="0 0 72 72">
+                <circle cx="36" cy="36" r="28" fill="none" stroke="#e0e8dc" stroke-width="4"/>
+                <circle id="ring-C" cx="36" cy="36" r="28" fill="none" stroke="#1658EA" stroke-width="4"
+                  stroke-dasharray="175.9" stroke-dashoffset="175.9" stroke-linecap="round"/>
               </svg>
-              <div class="ring-pct" id="pct-C" style="color:#1658EA">0%</div>
+              <div class="ring-pct" id="pct-C" style="color:#1658EA">—</div>
             </div>
           </div>
         </div>
@@ -1018,12 +1020,12 @@ input { font-family: 'DM Sans', sans-serif; }
           <div class="theme-card-footer">
             <span class="theme-q-count" id="count-D">11 subtopics</span>
             <div class="progress-ring-wrap">
-              <svg width="32" height="32" viewBox="0 0 32 32">
-                <circle cx="16" cy="16" r="12" fill="none" stroke="#e0e8dc" stroke-width="3"/>
-                <circle id="ring-D" cx="16" cy="16" r="12" fill="none" stroke="#6e4fc4" stroke-width="3"
-                  stroke-dasharray="75.4" stroke-dashoffset="75.4" stroke-linecap="round"/>
+              <svg width="72" height="72" viewBox="0 0 72 72">
+                <circle cx="36" cy="36" r="28" fill="none" stroke="#e0e8dc" stroke-width="4"/>
+                <circle id="ring-D" cx="36" cy="36" r="28" fill="none" stroke="#6e4fc4" stroke-width="4"
+                  stroke-dasharray="175.9" stroke-dashoffset="175.9" stroke-linecap="round"/>
               </svg>
-              <div class="ring-pct" id="pct-D" style="color:#6e4fc4">0%</div>
+              <div class="ring-pct" id="pct-D" style="color:#6e4fc4">—</div>
             </div>
           </div>
         </div>
@@ -7013,7 +7015,7 @@ function bioUpdateProgressRings() {
       });
     });
     const pct = total > 0 ? Math.round(correct / total * 100) : 0;
-    const ringCirc = 75.4; // 2π × 12
+    const ringCirc = 175.9; // 2π × 28
     const offset = ringCirc - (ringCirc * pct / 100);
     const ring  = document.getElementById('ring-'  + theme);
     const pctEl = document.getElementById('pct-'   + theme);
