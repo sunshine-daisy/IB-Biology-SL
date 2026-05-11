@@ -148,7 +148,7 @@ input { font-family: 'DM Sans', sans-serif; }
 .theme-card {
   background: #fff; border: 1px solid #e0e8dc;
   border-radius: 14px; padding: 15px;
-  cursor: pointer; position: relative; overflow: hidden;
+  cursor: pointer; position: relative;
   transition: border-color 0.15s, transform 0.1s;
   display: flex; flex-direction: column;
 }
@@ -168,13 +168,13 @@ input { font-family: 'DM Sans', sans-serif; }
 .theme-card-desc { font-size: 12px; color: #7a9a7a; line-height: 1.4; margin-bottom: 10px; }
 .theme-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 10px; }
 .theme-q-count { font-family: 'DM Mono', monospace; font-size: 10px; color: #aacbaa; }
-.progress-ring-wrap { position: relative; width: 72px; height: 72px; flex-shrink: 0; }
-.progress-ring-wrap svg { transform: rotate(-90deg); }
+.progress-ring-wrap { position: relative; width: 72px; height: 72px; flex-shrink: 0; pointer-events: none; }
+.progress-ring-wrap svg { transform: rotate(-90deg); pointer-events: none; }
 .ring-pct {
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%,-50%);
   font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 600; color: #2d5a2d;
-  white-space: nowrap;
+  white-space: nowrap; pointer-events: none;
 }
 
 /* ── Mix Card ─────────────────────────────────────────────────────────────── */
